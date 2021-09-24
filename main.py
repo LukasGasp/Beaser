@@ -1,11 +1,10 @@
 import sacn
 
-ip = "192.168.178.42"   # IP for sACN
 luniverse = 1           # DMX-Universe
 
 # =============================== sACN ===============================
 
-receiver = sacn.sACNreceiver(ip)
+receiver = sacn.sACNreceiver()
 receiver.start()
 
 @receiver.listen_on('universe', universe=luniverse)
