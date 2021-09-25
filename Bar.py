@@ -1,26 +1,30 @@
+from tkinter import Canvas
+
+
 class Bar():
     "Makes a Bar"
 
-    pos = 1
     zoom = 127 # Half of 255 (DMX - Max)
     horizontal = False
+    screensize = 1920, 1080
 
-    def __init__(self, postemp, horizontal):
+    def __init__(self, canvas, pos, xscreensize, temphorizontal):
         # Initialisiert Klasse
-        pos = postemp
+        horizontal = temphorizontal
         if horizontal:
             # TODO Wagerechten Balken machen - Sonst Senkrecht
             pass
-#hallo
-
+        self.canvas = canvas
+        self.canvas_id = self.canvas.create_rectangle(0, pos, xscreensize, pos + 100, fill = "white")
+        # TODO Outline?
+    
     def visibility(self, state):
         print("Changing visibility to " + state)
         print("TODO")
         # TODO Change Visibility
 
     def move(self, postemp):
-        pos = postemp
-        # TODO Move
+        self.canvas.moveto(self.canvas_id, 0, postemp)
         print("TODO")
 
     def getpos(self):
