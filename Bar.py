@@ -11,6 +11,7 @@ class Bar():
         if horizontal:
             # TODO Wagerechten Balken machen - Sonst Senkrecht
             pass
+#hallo
 
     def visibility(self, state):
         print("Changing visibility to " + state)
