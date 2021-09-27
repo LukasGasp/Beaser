@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
-
-import javax.xml.crypto.Data;
-
 import java.util.logging.Level;
 
 public class Main{
@@ -17,11 +14,9 @@ public class Main{
         Logger logger;
 
         int[] dmx;
-        boolean running;
 
         dmx  = new int[512];
         logger  = Logger.getLogger("Logger for main");
-        running = true;
 
         try {
         
