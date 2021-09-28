@@ -6,22 +6,22 @@ import java.util.logging.Level;
 
 public class Main{
 
-    public static void main(String[] args){
+    static Logger logger = Logger.getLogger("Logger for main");
+
+    public Main(){
 
         String s = null;
         int current = 0;
-        // Logger
-        Logger logger;
 
         int[] dmx;
 
         dmx  = new int[512];
-        logger  = Logger.getLogger("Logger for main");
 
         try {
         
             // Run Python to get sacn
             Process p = Runtime.getRuntime().exec("python3 getsacn.py");
+            logger.log(Level.INFO, "Created python listener");
             
             BufferedReader stdInput = new BufferedReader(new 
                  InputStreamReader(p.getInputStream()));
@@ -33,7 +33,6 @@ public class Main{
             while ((s = stdInput.readLine()) != null) {
                 if (s.equals("start")){
                     current = 0;
-                    logger.log(Level.FINEST, "New Data");
                 } else {
                     int i=Integer.parseInt(s); 
                     dmx[current] = i;
@@ -56,4 +55,12 @@ public class Main{
         }
 
     }
+
+    public static void main(String[] args) {
+        new Screen();
+        logger.log(Level.INFO, "Created Screen");
+        logger.log(Level.INFO, "Starting Main Function");
+        new Main();
+        logger.log(Level.WARNING, "Main function finished");
+     }
 }

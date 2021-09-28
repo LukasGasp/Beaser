@@ -1,5 +1,4 @@
 import sacn
-import time
 
 luniverse = 1           # DMX-Universe
 
