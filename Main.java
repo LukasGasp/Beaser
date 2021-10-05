@@ -2,18 +2,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
+
 import java.util.logging.Level;
 
 public class Main{
 
     static Logger logger = Logger.getLogger("Logger for main");
+    int[] dmx;
+    boolean running = true;
+    static Screen mainscreen;
 
     public Main(){
 
         String s = null;
-        int current = 0;
-
-        int[] dmx;
 
         dmx  = new int[512];
 
@@ -31,12 +32,14 @@ public class Main{
 
             // read the output from the command (Success) and put it in Array DMX
             while ((s = stdInput.readLine()) != null) {
-                if (s.equals("start")){
-                    current = 0;
+                if (s.equals("stop")){
+                    taskcheck();
                 } else {
-                    int i=Integer.parseInt(s); 
-                    dmx[current] = i;
-                    current = current + 1;
+                    String[] parts = s.split(":");
+                    if(parts.length!=2){throw new IllegalArgumentException();}
+                    int index = Integer.parseInt(parts[0]);
+                    int data = Integer.parseInt(parts[1]);
+                    dmx[index] = data;
                 }
             }
 
@@ -56,8 +59,17 @@ public class Main{
 
     }
 
+    public void taskcheck(){
+        logger.log(Level.FINEST, "Taskforce 1");
+        System.out.println(dmx[0]);
+        if(dmx[0] == 0){
+            System.out.println("Mode: Off");
+            mainscreen.setmode(0);
+        }
+    }
+
     public static void main(String[] args) {
-        new Screen();
+        mainscreen = new Screen();
         logger.log(Level.INFO, "Created Screen");
         logger.log(Level.INFO, "Starting Main Function");
         new Main();

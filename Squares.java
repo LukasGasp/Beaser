@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-class Square extends JPanel {
+class Squares extends JPanel {
     private static final int PREF_W = 500;
     private static final int PREF_H = PREF_W;
     private List<Rectangle> squares = new ArrayList<Rectangle>();
