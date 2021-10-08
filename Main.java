@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
+import java.io.*;
+import java.net.*;
 
 import java.util.logging.Level;
 
@@ -9,66 +11,55 @@ public class Main{
 
     static Logger logger = Logger.getLogger("Logger for main");
     int[] dmx;
-    boolean running = true;
+    int port = 1994;
     static Screen mainscreen;
 
-    public Main(){
-
-        String s = null;
+    public Main() throws NumberFormatException, IOException{
 
         dmx  = new int[512];
 
-        try {
-        
-            // Run Python to get sacn
-            Process p = Runtime.getRuntime().exec("python3 getsacn.py");
-            logger.log(Level.INFO, "Created python listener");
-            
-            BufferedReader stdInput = new BufferedReader(new 
-                 InputStreamReader(p.getInputStream()));
+        String message;
 
-            BufferedReader stdError = new BufferedReader(new 
-                 InputStreamReader(p.getErrorStream()));
-
-            // read the output from the command (Success) and put it in Array DMX
-            while ((s = stdInput.readLine()) != null) {
-                if (s.equals("stop")){
-                    taskcheck();
-                } else {
-                    String[] parts = s.split(":");
-                    if(parts.length!=2){throw new IllegalArgumentException();}
-                    int index = Integer.parseInt(parts[0]);
-                    int data = Integer.parseInt(parts[1]);
-                    dmx[index] = data;
-                }
+        ServerSocket server = new ServerSocket(port);
+        logger.log(Level.INFO, "Java listening on Port " + String.valueOf(port));
+ 
+        boolean run = true;
+        while(run) {
+            logger.log(Level.FINE, "Listening");
+            Socket client = server.accept();
+            logger.log(Level.FINER, "Got data");
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+ 
+            message = in.readLine();
+            logger.log(Level.FINE, "Got message: " + message);
+            String[] parts = message.split(":");
+            for(int i=1; i<parts.length; i++) {
+                dmx[i - 1] = Integer.parseInt(parts[i]);
             }
-
-            // read any errors from the attempted command (Errors)
-            while ((s = stdError.readLine()) != null) {
-                logger.log(Level.WARNING, "Error from Command Line");
-                logger.log(Level.WARNING, s);
-            }
-            
-            System.exit(0);
+            taskcheck();
         }
-        catch (IOException e) {
-            logger.log(Level.WARNING, "IO-Exception");
-            e.printStackTrace();
-            System.exit(-1);
-        }
+        System.exit(0);
 
     }
 
     public void taskcheck(){
         logger.log(Level.FINEST, "Taskforce 1");
-        System.out.println(dmx[0]);
-        if(dmx[0] == 0){
-            System.out.println("Mode: Off");
-            mainscreen.setmode(0);
+        // Mode
+        if(dmx[0] >= 0 && dmx[0] <= 9){
+            mainscreen.setmode(1);
         }
+        if(dmx[0] >= 10 && dmx[0] <= 19){
+            mainscreen.setmode(2);
+        }
+        // Dimmer
+        mainscreen.setdim(dmx[1]);
+        // Move
+        mainscreen.moveit(dmx[2], dmx[3]);
+        // Color
+        mainscreen.setcolor(dmx[4], dmx[5], dmx[6]);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         mainscreen = new Screen();
         logger.log(Level.INFO, "Created Screen");
         logger.log(Level.INFO, "Starting Main Function");

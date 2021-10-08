@@ -62,7 +62,7 @@ public class DRectangle extends JPanel{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(maincolor); //use g2 instead
-        g2.fillRect(x, y, x + width, y + width);
+        g2.fillRect(x, y, width, height);
         setBackground(Color.black);
         g2.draw(main);
     }
