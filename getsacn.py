@@ -20,6 +20,7 @@ def callback(packet):  # packet type: sacn.DataPacket)
         data = data + ":" + str(packet.dmxData[i])
     sendmessage(data)
 
+print("Start receiver")
 receiver.start()
 
 #data = sock.recv(1024)

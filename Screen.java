@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.logging.Level;
 
 import javax.swing.*;
@@ -13,108 +14,120 @@ public class Screen extends JFrame{
 
     int x = 100;
     int y = 100;
-    int xwidth = 50;
-    int ywidht = 50;
+    int width = 100;
+    int height = 100;
     int dim = 255;
+    Color color = new Color(255, 255, 255);
 
-    int red = 255;
-    int green = 0;
-    int blue = 0;
-    int mode;
+    int mode = 0;
 
     // 0: OFF
     // 1: D -   (efault)  - Rectangle
     // 2: D -   (efault)   - Circle
     // 3: ICH HABE DOCH SELBST KEINEN PLAN
     
+    int[] dmxcache;
+    Panel panel;
+
     public Screen(){
-        //Create Objects and shit
-        prepareobjects();
-        createscreen();
-        frame.getContentPane().add(drectangle);
-        frame.getContentPane().remove(drectangle);
+        dmxcache  = new int[512];
+
+        setSize(800, 600);
+        setTitle("Beaser");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         logger.log(Level.INFO, "Screen ready");
+        
+        panel = new Panel();
+        panel.setBackground(Color.black);
+        add(panel);
+        setVisible(true);
     }
 
-    public void createscreen(){
-        frame = new JFrame("Beaser");
-        frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        logger.log(Level.INFO, "Window Created");
+    public void givedata(int[] dmx){
+        mode(dmx[0]);
+        dim(dmx[1]);
+        move(dmx[2], dmx[3]);
+        size(dmx[4], dmx[5]);
+        rgb(dmx[6], dmx[7], dmx[8]);
     }
 
-    public void prepareobjects(){
-        drectangle = new DRectangle(x, y, xwidth, ywidht, red, green, blue);
-
-    }
-
-    public void refresh(){
-        //TODO: Machen, falls nötig
-    }
-
-    public void setdim(int tempdim){
-        // ÄHM JA. BESTIMMT. Muss mit RGB Kombiniert werden. BESTIMMT
-        dim = tempdim;
-        drectangle.setcolor(red * (dim/255), green * (dim/255), blue * (dim/255));
-        // TODO: Dim < 0 = AUS?
-        frame.getContentPane().repaint();
-    }
-
-    public void moveit(int tempx, int tempy){
-        if(!(x == tempx && y == tempy)){
-            x = tempx;
-            y = tempy;
-            drectangle.moveit(x, y);
-            frame.getContentPane().repaint();
-        }
-    }
-
-    public void setcolor(int tempRed, int tempGreen, int tempBlue){
-        red = tempRed;
-        green = tempGreen;
-        blue = tempBlue;
-        drectangle.setcolor(red * (dim/255), green * (dim/255), blue * (dim/255));
-        frame.getContentPane().repaint();
-    }
-
-    // =================================================================== Moduswahl ===================================================================
-
-    public void setmode(int tempmode){
-        if(mode == tempmode){
-            // Everything stays the same => Nothing to do
-            return;
+    public void mode(int dmx){
+        if(dmx >= 0 && dmx <= 9){
+            if (mode != 0){
+                mode = 0; // OFF
+                panel.setmode(0);
+                logger.log(Level.INFO, "Mode to off");
+            }
+        } else if(dmx >= 10 && dmx <= 19){
+            if (mode != 1){
+                mode = 1; // Horizontal Line
+                panel.setmode(1);
+                logger.log(Level.INFO, "Mode to Horizontal Line");
+            }
+        } else if(dmx >= 20 && dmx <= 29){
+            if (mode != 2){
+                mode = 1; // Vertical Line
+                panel.setmode(2);
+                logger.log(Level.INFO, "Mode to Vertical Line");
+            }
+        } else if(dmx >= 30 && dmx <= 39){
+            if (mode != 3){
+                mode = 3; // Rectangle
+                panel.setmode(3);
+                logger.log(Level.INFO, "Mode to rectangle");
+            }
+        } else if(dmx >= 40 && dmx <= 49){
+            if (mode != 4){
+                mode = 4; // Oval
+                panel.setmode(4);
+                logger.log(Level.INFO, "Mode to oval");
+            }
+        } else if(dmx >= 50 && dmx <= 59){
+            if (mode != 5){
+                mode = 5; // Poly Line
+                panel.setmode(5);
+                logger.log(Level.INFO, "Mode to Poly Line");
+            }
+        } else if(dmx >= 60 && dmx <= 69){
+            if (mode != 6){
+                mode = 6; // NGK - Logo
+                panel.setmode(6);
+                logger.log(Level.INFO, "Mode to NGK - Logo");
+            }
+        } else if(dmx >= 70 && dmx <= 79){
+            if (mode != 7){
+                mode = 7; // Arc
+                panel.setmode(7);
+                logger.log(Level.INFO, "Mode to Arc");
+            }
         } else {
-            if(tempmode == 1){
-                logger.log(Level.INFO, "Mode set to 0 (OFF)");
-                setmode0();
-            }
-            if(tempmode == 2){
-                logger.log(Level.INFO, "Mode set to 1 (D-Rectangle)");
-                setmode1();
-            }
-            if(tempmode == 3){
-                logger.log(Level.INFO, "Mode set to 2 (D-Oval)");
-            }
-            if(tempmode == 4){
-                logger.log(Level.INFO, "Mode set to 3 (KEINE AHNUNG)");
+            if (mode != 0){
+                panel.setmode(1);
+                logger.log(Level.INFO, "Mode not in defined level");
+                mode = 0;
             }
         }
-        mode = tempmode;
     }
 
-    public void setmode0(){
-        // ÄHM JA
-        //TODO: Machen
-        frame.getContentPane().remove(drectangle);
+    public void dim(int dim){
+        // TODO: Dimmen
     }
 
-    public void setmode1(){
-        frame.getContentPane().add(drectangle);
+    public void move(int x, int y){
+        // TODO: Move
     }
 
-    public void setmode2(){
-        // ÄHM NEIN
-        //TODO: Machen (Oval)
+    public void size(int width, int height){
+        // TODO: Size
+    }
+
+    public void rgb(int red, int green, int blue){
+        // TODO: RGB
+        color = new Color(red, green, blue);
+        if (color != panel.getcolor()){
+            panel.setcolor(color);
+            panel.forcerepaint();
+        }
     }
 }

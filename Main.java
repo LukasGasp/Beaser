@@ -36,27 +36,10 @@ public class Main{
             for(int i=1; i<parts.length; i++) {
                 dmx[i - 1] = Integer.parseInt(parts[i]);
             }
-            taskcheck();
+            mainscreen.givedata(dmx);
         }
         System.exit(0);
 
-    }
-
-    public void taskcheck(){
-        logger.log(Level.FINEST, "Taskforce 1");
-        // Mode
-        if(dmx[0] >= 0 && dmx[0] <= 9){
-            mainscreen.setmode(1);
-        }
-        if(dmx[0] >= 10 && dmx[0] <= 19){
-            mainscreen.setmode(2);
-        }
-        // Dimmer
-        mainscreen.setdim(dmx[1]);
-        // Move
-        mainscreen.moveit(dmx[2], dmx[3]);
-        // Color
-        mainscreen.setcolor(dmx[4], dmx[5], dmx[6]);
     }
 
     public static void main(String[] args) throws IOException {
