@@ -14,7 +14,8 @@ public class Screen extends JFrame{
 
     float dim = 1;
     Color color = new Color(255, 255, 255);
-
+    int height;
+    int width;
     int mode = 0;
 
     // 0: OFF
@@ -46,11 +47,11 @@ public class Screen extends JFrame{
     }
 
     public void givedata(int[] dmx){
-        panel.setwindowsize(getSize().width, getSize().height);
+        panel.setwindowsize(getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
+        size(dmx[4], dmx[5]);                                   // Muss als zweites aufgerufen werden, damit größen für die position stimmen
         mode(dmx[0]);
         dim(dmx[1]);
         setpos(dmx[2], dmx[3]);
-        size(dmx[4], dmx[5]);
         //logger.log(Level.INFO, String.valueOf(panel.getwidht()) + String.valueOf(panel.getheight()));
         rgb(dmx[6], dmx[7], dmx[8]);
         panel.forcerepaint();
@@ -119,18 +120,21 @@ public class Screen extends JFrame{
         dim = (ctempdim / 255);
     }
 
-    public void setpos(int x, int y){
+    public void setpos(int tempx, int tempy){
         windowSize = getSize();
-        float cx = x; // Sonst keine nachkommastellen
-        float cy = y; // Gleiches hier
-        panel.setposition(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));
+        float cx = tempx; // Sonst keine nachkommastellen
+        float cy = tempy; // Gleiches hier
+        //panel.setposition(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));   // Hier ist es unmöglich oben raus zu kommen
+        panel.setposition(Math.round((cx / 255) * (windowSize.width + width) - width), Math.round((cy / 255) * (windowSize.height + height) - height));
     }
 
-    public void size(int width, int height){
+    public void size(int tempwidth, int tempheight){
         windowSize = getSize();
-        float cx = width; // Sonst keine nachkommastellen
-        float cy = height; // Gleiches hier
-        panel.setsize(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));
+        float cx = tempwidth; // Sonst keine nachkommastellen
+        float cy = tempheight; // Gleiches hier
+        width = Math.round((cx / 255) * windowSize.width);
+        height = Math.round((cy / 255) * windowSize.height);
+        panel.setsize(width, height);
     }
 
     public void rgb(int red, int green, int blue){

@@ -16,6 +16,8 @@ public class Main{
     ServerSocket server;
     static boolean run = true;
 
+    static Process python;
+
     public Main() throws NumberFormatException, IOException{
 
         dmx  = new int[512];
@@ -46,12 +48,15 @@ public class Main{
     public static void main(String[] args) throws IOException {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run(){
+                python.destroy(); // Stops python Process #clean
                 run = false;
                 System.out.println("Shutdown");
             }
         }, "Shutdown-thread"));
+        logger.log(Level.INFO, "Creating Screen");
         mainscreen = new Screen();
-        logger.log(Level.INFO, "Created Screen");
+        logger.log(Level.INFO, "Starting Python listerner");
+        python = Runtime.getRuntime().exec("python3 getsacn.py");
         logger.log(Level.INFO, "Starting Main Function");
         new Main();
         logger.log(Level.WARNING, "Main function finished");
