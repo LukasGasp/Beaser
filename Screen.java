@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.util.logging.Level;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
 
 import java.util.logging.Logger;
@@ -10,11 +12,7 @@ public class Screen extends JFrame{
     static Logger logger = Logger.getLogger("Logger for screen");
     JFrame frame;
 
-    int x = 100;
-    int y = 100;
-    int width = 100;
-    int height = 100;
-    int dim = 255;
+    float dim = 1;
     Color color = new Color(255, 255, 255);
 
     int mode = 0;
@@ -26,6 +24,8 @@ public class Screen extends JFrame{
     
     int[] dmxcache;
     Panel panel;
+
+    Dimension windowSize;
 
     public Screen(){
         dmxcache  = new int[512];
@@ -40,12 +40,16 @@ public class Screen extends JFrame{
         panel.setBackground(Color.black);
         add(panel);
         setVisible(true);
+
+        windowSize = getSize();
+        System.out.println(windowSize);
     }
 
     public void givedata(int[] dmx){
+        panel.setwindowsize(getSize().width, getSize().height);
         mode(dmx[0]);
         dim(dmx[1]);
-        panel.setposition(dmx[2], dmx[3]);
+        setpos(dmx[2], dmx[3]);
         size(dmx[4], dmx[5]);
         //logger.log(Level.INFO, String.valueOf(panel.getwidht()) + String.valueOf(panel.getheight()));
         rgb(dmx[6], dmx[7], dmx[8]);
@@ -110,17 +114,27 @@ public class Screen extends JFrame{
         }
     }
 
-    public void dim(int dim){
-        // TODO: Dimmen
+    public void dim(int tempdim){
+        float ctempdim = tempdim; // Sonst keine nachkommastellen
+        dim = (ctempdim / 255);
+    }
+
+    public void setpos(int x, int y){
+        windowSize = getSize();
+        float cx = x; // Sonst keine nachkommastellen
+        float cy = y; // Gleiches hier
+        panel.setposition(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));
     }
 
     public void size(int width, int height){
-        panel.setsize(width, height);
+        windowSize = getSize();
+        float cx = width; // Sonst keine nachkommastellen
+        float cy = height; // Gleiches hier
+        panel.setsize(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));
     }
 
     public void rgb(int red, int green, int blue){
-        // TODO: RGB
-        color = new Color(red, green, blue);
+        color = new Color(Math.round(red * dim), Math.round(green * dim), Math.round(blue * dim));
         if (color != panel.getcolor()){
             panel.setcolor(color);
         }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.logging.Level;
 
 public class Panel extends JPanel{
     
@@ -16,6 +15,9 @@ public class Panel extends JPanel{
     Color maincolor = new Color(255, 255, 255);
 
     int mode = 0;
+
+    int wxsize;
+    int wysize;
 
     // ==================================== Getter & Setter ==================================== \\
 
@@ -69,6 +71,13 @@ public class Panel extends JPanel{
         return maincolor;
     }
 
+    // ============ Options ============ \\
+
+    public void setwindowsize(int twxsize, int twysize){
+        wxsize = twxsize;
+        wysize = twysize;
+    }
+
     // ==================================== Painting ==================================== \\
 
     @Override
@@ -82,12 +91,12 @@ public class Panel extends JPanel{
 
             case 1 :
                // Horizontal Line
-               g.fillRect(0, y, width, height);
+               g.fillRect(0, y, wxsize, height);
                break;
             
             case 2 :
                 // Vertical Line
-                g.drawLine(x, 0, width, height);
+                g.fillRect(x, 0, width, wysize);
                 break;
             case 3 :
                 // Rectangle
@@ -99,17 +108,17 @@ public class Panel extends JPanel{
                 break;
             case 5 : 
                 // Poly Line (?)
-                int x[] = {100, 200, 300};
-                int y[] = {400, 300, 400};
+                int tx[] = {100, 200, 300};
+                int ty[] = {400, 300, 400};
                 int n = 3;
         
-                g.drawPolyline(x, y, n);
+                g.drawPolyline(tx, ty, n);
                 break;
             case 6 :
                 // NGK - Logo
                 String url = "NGKwanneweiß.png";
                 Image image = new ImageIcon(url).getImage();
-                g.drawImage(image, 300, 50, 200, 100, null);
+                g.drawImage(image, x, y, width, height, null);
                 break;
             case 7 :
                 // Arc

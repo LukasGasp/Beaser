@@ -24,7 +24,7 @@ public class Main{
 
         server = new ServerSocket(port);
         logger.log(Level.INFO, "Java listening on Port " + String.valueOf(port));
- 
+
         while(run) {
             logger.log(Level.FINE, "Listening");
             Socket client = server.accept();
