@@ -16,7 +16,7 @@ def sendmessage(message):
 @receiver.listen_on('universe', universe=1)
 def callback(packet):  # packet type: sacn.DataPacket)
     data = "start"
-    for i in range(0, 10):
+    for i in range(0, 20):
         data = data + ":" + str(packet.dmxData[i])
     sendmessage(data)
 

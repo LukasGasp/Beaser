@@ -19,6 +19,10 @@ public class Panel extends JPanel{
     int wxsize;
     int wysize;
 
+    int eoption;
+
+    String image= "ngklogo.png";
+
     // ==================================== Getter & Setter ==================================== \\
 
     // ============ Mode ============ \\
@@ -73,6 +77,10 @@ public class Panel extends JPanel{
 
     // ============ Options ============ \\
 
+    public void seteffectoption(int tempoption){
+        eoption = tempoption;
+    }
+
     public void setwindowsize(int twxsize, int twysize){
         wxsize = twxsize;
         wysize = twysize;
@@ -88,12 +96,10 @@ public class Panel extends JPanel{
             case 0 :
                // Off
                break;
-
             case 1 :
                // Horizontal Line
                g.fillRect(0, y, wxsize, height);
                break;
-            
             case 2 :
                 // Vertical Line
                 g.fillRect(x, 0, width, wysize);
@@ -115,11 +121,15 @@ public class Panel extends JPanel{
                 g.drawPolyline(tx, ty, n);
                 break;
             case 6 :
-                // NGK - Logo
-                String url = "NGKwanneweiß.png";
-                Image image = new ImageIcon(url).getImage();
+            if(eoption >= 0 && eoption <= 9){
+                Image image = new ImageIcon("images/ngklogo.png").getImage();
                 g.drawImage(image, x, y, width, height, null);
                 break;
+            } else if(eoption >= 10 && eoption <= 19){   
+                g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width));
+                g.drawString("NGK", x, y); 
+                break;
+            }
             case 7 :
                 // Arc
                 g.fillArc(400, 200, 100, 100, 0, 90);

@@ -3,15 +3,30 @@ A little python/java project for using a Beamer as Laser over sACN
 
 ## DMX-Footprint
 Channel 1:  Mode <br />
-Channel 2:  Dimmer <br />
-Channel 3:  PAN     (x-pos) <br />
-Channel 4:  Tilt    (y-pos) <br />
-Channel 5:  x-Size <br />
-Channel 6:  y-Size <br />
-Channel 7:  R <br />
-Channel 8:  G <br />
-Channel 9:  B <br />
-Channel 10: Effekt options <br />
+
+Channel 2:  Dimmer 1 <br />
+Channel 3:  Dimmer 2 <br />
+Channel 4:  Dimmer 3 <br />
+
+Channel 5:  PAN     (x-pos) <br />
+Channel 6:  Tilt    (y-pos) <br />
+PAN UND TILT WERDEN AUCH 3 MAL
+Channel 7:  x-Size <br />
+Channel 8:  y-Size <br />
+
+Channel 9:   R 1 <br />
+Channel 10:  G 1 <br />
+Channel 11:  B 1 <br />
+
+Channel 12:  R 2 <br />
+Channel 13:  G 2 <br />
+Channel 14:  B 2 <br />
+
+Channel 15:  R 3 <br />
+Channel 16:  G 3 <br />
+Channel 17:  B 3 <br />
+
+Channel 18: Effekt options <br />
 
 
 ## Modes: (Channel 1)

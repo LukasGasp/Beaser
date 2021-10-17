@@ -17,11 +17,6 @@ public class Screen extends JFrame{
     int height;
     int width;
     int mode = 0;
-
-    // 0: OFF
-    // 1: D -   (efault)  - Rectangle
-    // 2: D -   (efault)   - Circle
-    // 3: ICH HABE DOCH SELBST KEINEN PLAN
     
     int[] dmxcache;
     Panel panel;
@@ -48,12 +43,14 @@ public class Screen extends JFrame{
 
     public void givedata(int[] dmx){
         panel.setwindowsize(getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
-        size(dmx[4], dmx[5]);                                   // Muss als zweites aufgerufen werden, damit größen für die position stimmen
+
+        size(dmx[6], dmx[7]);                                   // Muss als zweites aufgerufen werden, damit größen für die position stimmen
         mode(dmx[0]);
-        dim(dmx[1]);
-        setpos(dmx[2], dmx[3]);
+        dim(dmx[1], dmx[2], dmx[3]);
+        setpos(dmx[4], dmx[5]);
         //logger.log(Level.INFO, String.valueOf(panel.getwidht()) + String.valueOf(panel.getheight()));
-        rgb(dmx[6], dmx[7], dmx[8]);
+        rgb(dmx[8], dmx[9], dmx[10], dmx[11], dmx[12], dmx[13], dmx[14], dmx[15], dmx[16]);
+        eoptions(dmx[17]);
         panel.forcerepaint();
     }
 
@@ -115,12 +112,14 @@ public class Screen extends JFrame{
         }
     }
 
-    public void dim(int tempdim){
-        float ctempdim = tempdim; // Sonst keine nachkommastellen
+    public void dim(int tempdim1, int tempdim2, int tempdim3){
+        //TODO: Implement DIM2 and DIM3 for Written NGK
+        float ctempdim = tempdim1; // Sonst keine nachkommastellen
         dim = (ctempdim / 255);
     }
 
     public void setpos(int tempx, int tempy){
+        //TODO: 3x Pan / Tilt für Effekte
         windowSize = getSize();
         float cx = tempx; // Sonst keine nachkommastellen
         float cy = tempy; // Gleiches hier
@@ -137,10 +136,15 @@ public class Screen extends JFrame{
         panel.setsize(width, height);
     }
 
-    public void rgb(int red, int green, int blue){
-        color = new Color(Math.round(red * dim), Math.round(green * dim), Math.round(blue * dim));
+    public void rgb(int red1, int green1, int blue1, int red2, int green2, int blue2, int red3, int green3, int blue3){
+        //TODO: Implement RGB2 and RGB 3 for Written NGK
+        color = new Color(Math.round(red1 * dim), Math.round(green1 * dim), Math.round(blue1 * dim));
         if (color != panel.getcolor()){
             panel.setcolor(color);
         }
+    }
+
+    public void eoptions(int tempoption){
+        panel.seteffectoption(tempoption);
     }
 }

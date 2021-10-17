@@ -39,6 +39,9 @@ public class Main{
             for(int i=1; i<parts.length; i++) {
                 dmx[i - 1] = Integer.parseInt(parts[i]);
             }
+            //for(int i=1; i<dmx.length; i++){  //Prints received Data
+            //    System.out.println(dmx[i]);
+            //}
             mainscreen.givedata(dmx);
         }
         server.close();
