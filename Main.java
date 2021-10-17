@@ -13,6 +13,8 @@ public class Main{
     int[] dmx;
     int port = 1994;
     static Screen mainscreen;
+    ServerSocket server;
+    static boolean run = true;
 
     public Main() throws NumberFormatException, IOException{
 
@@ -20,10 +22,9 @@ public class Main{
 
         String message;
 
-        ServerSocket server = new ServerSocket(port);
+        server = new ServerSocket(port);
         logger.log(Level.INFO, "Java listening on Port " + String.valueOf(port));
  
-        boolean run = true;
         while(run) {
             logger.log(Level.FINE, "Listening");
             Socket client = server.accept();
@@ -38,11 +39,17 @@ public class Main{
             }
             mainscreen.givedata(dmx);
         }
-        System.exit(0);
-
+        server.close();
+        logger.log(Level.WARNING, "Closed Server");
     }
 
     public static void main(String[] args) throws IOException {
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run(){
+                run = false;
+                System.out.println("Shutdown");
+            }
+        }, "Shutdown-thread"));
         mainscreen = new Screen();
         logger.log(Level.INFO, "Created Screen");
         logger.log(Level.INFO, "Starting Main Function");

@@ -6,9 +6,11 @@ Channel 1:  Mode
 Channel 2:  Dimmer (Not yet)
 Channel 3:  PAN
 Channel 4:  Tilt
-Channel 5:  R
-Channel 6:  G
-Channel 7:  B
+Channel 5:  x-Size
+Channel 6:  y-Size
+Channel 7:  R
+Channel 8:  G
+Channel 9:  B
 
 # Modes: (Channel 1)
 0: OFF

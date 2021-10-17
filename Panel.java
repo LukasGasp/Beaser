@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.logging.Level;
 
 public class Panel extends JPanel{
     
@@ -30,7 +31,7 @@ public class Panel extends JPanel{
 
     // ========== Postition ========== \\
 
-    public void setpos(int tempx, int tempy){
+    public void setposition(int tempx, int tempy){
         x = tempx;
         y = tempy;
     }
@@ -41,6 +42,21 @@ public class Panel extends JPanel{
 
     public int gety(){
         return y;
+    }
+
+    // ============ Size ============ \\
+
+    public void setsize(int tempwidth, int tempheight){
+        width = tempwidth;
+        height = tempheight;
+    }
+
+    public int getwidht(){
+        return width;
+    }
+
+    public int getheight(){
+        return height;
     }
 
     // ============ Color ============ \\
@@ -71,15 +87,15 @@ public class Panel extends JPanel{
             
             case 2 :
                 // Vertical Line
-                g.drawLine(100, 100, 200, 150);
+                g.drawLine(x, 0, width, height);
                 break;
             case 3 :
                 // Rectangle
-                g.fillRect(100, 200, 100, 50);
+                g.fillRect(x, y, width, height);
                 break;
             case 4 :
                 // Oval
-                g.fillOval(300, 200, 100, 100);
+                g.fillOval(x, y, width, height);
                 break;
             case 5 : 
                 // Poly Line (?)

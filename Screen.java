@@ -10,8 +10,6 @@ public class Screen extends JFrame{
     static Logger logger = Logger.getLogger("Logger for screen");
     JFrame frame;
 
-    DRectangle drectangle;
-
     int x = 100;
     int y = 100;
     int width = 100;
@@ -47,9 +45,11 @@ public class Screen extends JFrame{
     public void givedata(int[] dmx){
         mode(dmx[0]);
         dim(dmx[1]);
-        move(dmx[2], dmx[3]);
+        panel.setposition(dmx[2], dmx[3]);
         size(dmx[4], dmx[5]);
+        //logger.log(Level.INFO, String.valueOf(panel.getwidht()) + String.valueOf(panel.getheight()));
         rgb(dmx[6], dmx[7], dmx[8]);
+        panel.forcerepaint();
     }
 
     public void mode(int dmx){
@@ -67,7 +67,7 @@ public class Screen extends JFrame{
             }
         } else if(dmx >= 20 && dmx <= 29){
             if (mode != 2){
-                mode = 1; // Vertical Line
+                mode = 2; // Vertical Line
                 panel.setmode(2);
                 logger.log(Level.INFO, "Mode to Vertical Line");
             }
@@ -114,12 +114,8 @@ public class Screen extends JFrame{
         // TODO: Dimmen
     }
 
-    public void move(int x, int y){
-        // TODO: Move
-    }
-
     public void size(int width, int height){
-        // TODO: Size
+        panel.setsize(width, height);
     }
 
     public void rgb(int red, int green, int blue){
@@ -127,7 +123,6 @@ public class Screen extends JFrame{
         color = new Color(red, green, blue);
         if (color != panel.getcolor()){
             panel.setcolor(color);
-            panel.forcerepaint();
         }
     }
 }
