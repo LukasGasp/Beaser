@@ -14,137 +14,145 @@ public class Screen extends JFrame{
 
     float dim = 1;
     Color color = new Color(255, 255, 255);
-    int height;
-    int width;
-    int mode = 0;
+
     
     int[] dmxcache;
-    Panel panel;
+
+    int amount;
+
+    Panel panels;
 
     Dimension windowSize;
+    int datapointcache; // Stores which data of dmx has been used
 
     public Screen(){
+        amount = 5;
         dmxcache  = new int[512];
 
+        // Configuring Screen
         setSize(800, 600);
         setTitle("Beaser");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         logger.log(Level.INFO, "Screen ready");
-        
-        panel = new Panel();
-        panel.setBackground(Color.black);
-        add(panel);
+
+        getContentPane().setBackground(Color.BLACK);
+
+        panels = new Panel(amount);
+        panels.setOpaque(false);
+        add(panels);
+
+        logger.log(Level.INFO, "Configured " + String.valueOf(amount) + " panels.");
+
         setVisible(true);
 
         windowSize = getSize();
-        System.out.println(windowSize);
     }
 
     public void givedata(int[] dmx){
-        panel.setwindowsize(getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
-
-        size(dmx[6], dmx[7]);                                   // Muss als zweites aufgerufen werden, damit größen für die position stimmen
-        mode(dmx[0]);
-        dim(dmx[1], dmx[2], dmx[3]);
-        setpos(dmx[4], dmx[5]);
-        //logger.log(Level.INFO, String.valueOf(panel.getwidht()) + String.valueOf(panel.getheight()));
-        rgb(dmx[8], dmx[9], dmx[10], dmx[11], dmx[12], dmx[13], dmx[14], dmx[15], dmx[16]);
-        eoptions(dmx[17]);
-        panel.forcerepaint();
+        windowSize = getSize(); // For right sizing of object sizes
+        dmxcache = dmx;
+        //for(int i=1; i<dmxcache.length; i++){  //Prints received Data
+        //    System.out.println(dmxcache[i]);
+        //}
+        datapointcache = 0;
+        for(int i = 0; i < amount; i++){
+            panels.setwindowsize(i, getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
+            setmode(i, datapointcache, i);            // Rel Channel : 1
+            dim(i, datapointcache + 1);         // Rel Channel : 2
+            setpos(i, datapointcache + 2);      // Rel Channel : 3 + 4
+            size(i, datapointcache + 4);        // Rel Channel : 5 + 6
+            rgb(i, datapointcache + 6);         // Rel Channel : 7 + 8 + 9
+            eoptions(i, datapointcache + 9);    // Rel Channel : 10
+            panels.forcerepaint();
+            datapointcache = datapointcache + 10;
+        }
     }
 
-    public void mode(int dmx){
-        if(dmx >= 0 && dmx <= 9){
-            if (mode != 0){
-                mode = 0; // OFF
-                panel.setmode(0);
+    public void eoptions(int tempobject, int datapoint){
+        panels.seteffectoption(tempobject, dmxcache[datapoint]);
+    }
+
+    public void macro(int tempmacro){
+        // TODO: Make Macros
+    }
+
+    public void rgb(int tempobject, int datapoint){
+        panels.setcolor(tempobject, dmxcache[datapoint], dmxcache[datapoint + 1], dmxcache[datapoint + 2]);
+    }
+
+    public void setpos(int tempobject, int datapoint){
+        float cx = dmxcache[datapoint]; // Sonst keine nachkommastellen
+        float cy = dmxcache[datapoint + 1]; // Gleiches hier
+        //temppanel.setposition(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));   // Hier ist es unmöglich oben raus zu kommen
+        panels.setposition(tempobject, Math.round((cx / 255) * (windowSize.width + panels.getwidht(tempobject)) - panels.getwidht(tempobject)), Math.round((cy / 255) * (windowSize.height + panels.getheight(tempobject)) - panels.getheight(tempobject)));
+    }
+
+    public void size(int tempobject, int datapoint){
+        float cx = dmxcache[datapoint]; // Sonst keine nachkommastellen
+        float cy = dmxcache[datapoint + 1]; // Gleiches hier
+        //TODO: Smooth Zoom (x+y) => Wahrscheinlich floats statt int
+        panels.setsize(tempobject, Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));
+    }
+
+    public void dim(int tempobject, int datapoint){
+        panels.setdim(tempobject, dmxcache[datapoint]); // Sonst keine nachkommastellen
+    }
+
+    public void setmode(int tempobject, int datapoint, int index){
+        if(dmxcache[datapoint] >= 0 && dmxcache[datapoint] <= 9){
+            if (panels.getmode(tempobject) != 0){
+                panels.setmode(tempobject, 0); // OFF
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to off");
             }
-        } else if(dmx >= 10 && dmx <= 19){
-            if (mode != 1){
-                mode = 1; // Horizontal Line
-                panel.setmode(1);
+        } else if(dmxcache[datapoint] >= 10 && dmxcache[datapoint] <= 19){
+            if (panels.getmode(tempobject) != 1){
+                panels.setmode(tempobject, 1); // Horizontal Line
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Horizontal Line");
             }
-        } else if(dmx >= 20 && dmx <= 29){
-            if (mode != 2){
-                mode = 2; // Vertical Line
-                panel.setmode(2);
+        } else if(dmxcache[datapoint] >= 20 && dmxcache[datapoint] <= 29){
+            if (panels.getmode(tempobject) != 2){ 
+                panels.setmode(tempobject, 2); // Vertical Line
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Vertical Line");
             }
-        } else if(dmx >= 30 && dmx <= 39){
-            if (mode != 3){
-                mode = 3; // Rectangle
-                panel.setmode(3);
+        } else if(dmxcache[datapoint] >= 30 && dmxcache[datapoint] <= 39){
+            if (panels.getmode(tempobject) != 3){
+                panels.setmode(tempobject, 3); // Rectangle
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to rectangle");
             }
-        } else if(dmx >= 40 && dmx <= 49){
-            if (mode != 4){
-                mode = 4; // Oval
-                panel.setmode(4);
+        } else if(dmxcache[datapoint] >= 40 && dmxcache[datapoint] <= 49){
+            if (panels.getmode(tempobject) != 4){
+                panels.setmode(tempobject, 4); // Oval
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to oval");
             }
-        } else if(dmx >= 50 && dmx <= 59){
-            if (mode != 5){
-                mode = 5; // Poly Line
-                panel.setmode(5);
+        } else if(dmxcache[datapoint] >= 50 && dmxcache[datapoint] <= 59){
+            if (panels.getmode(tempobject) != 5){
+                panels.setmode(tempobject, 5); // Poly Line
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Poly Line");
             }
-        } else if(dmx >= 60 && dmx <= 69){
-            if (mode != 6){
-                mode = 6; // NGK - Logo
-                panel.setmode(6);
+        } else if(dmxcache[datapoint] >= 60 && dmxcache[datapoint] <= 69){
+            if (panels.getmode(tempobject) != 6){
+                panels.setmode(tempobject, 6); // NGK - Logo
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to NGK - Logo");
             }
-        } else if(dmx >= 70 && dmx <= 79){
-            if (mode != 7){
-                mode = 7; // Arc
-                panel.setmode(7);
+        } else if(dmxcache[datapoint] >= 70 && dmxcache[datapoint] <= 79){
+            if (panels.getmode(tempobject) != 7){
+                panels.setmode(tempobject, 7); // Arc
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Arc");
             }
         } else {
-            if (mode != 0){
-                panel.setmode(1);
+            if (panels.getmode(tempobject) != 0){
+                panels.setmode(tempobject, 0);
+                logger.log(Level.INFO, String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode not in defined level");
-                mode = 0;
             }
         }
-    }
-
-    public void dim(int tempdim1, int tempdim2, int tempdim3){
-        //TODO: Implement DIM2 and DIM3 for Written NGK
-        float ctempdim = tempdim1; // Sonst keine nachkommastellen
-        dim = (ctempdim / 255);
-    }
-
-    public void setpos(int tempx, int tempy){
-        //TODO: 3x Pan / Tilt für Effekte
-        windowSize = getSize();
-        float cx = tempx; // Sonst keine nachkommastellen
-        float cy = tempy; // Gleiches hier
-        //panel.setposition(Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));   // Hier ist es unmöglich oben raus zu kommen
-        panel.setposition(Math.round((cx / 255) * (windowSize.width + width) - width), Math.round((cy / 255) * (windowSize.height + height) - height));
-    }
-
-    public void size(int tempwidth, int tempheight){
-        windowSize = getSize();
-        float cx = tempwidth; // Sonst keine nachkommastellen
-        float cy = tempheight; // Gleiches hier
-        width = Math.round((cx / 255) * windowSize.width);
-        height = Math.round((cy / 255) * windowSize.height);
-        panel.setsize(width, height);
-    }
-
-    public void rgb(int red1, int green1, int blue1, int red2, int green2, int blue2, int red3, int green3, int blue3){
-        //TODO: Implement RGB2 and RGB 3 for Written NGK
-        color = new Color(Math.round(red1 * dim), Math.round(green1 * dim), Math.round(blue1 * dim));
-        if (color != panel.getcolor()){
-            panel.setcolor(color);
-        }
-    }
-
-    public void eoptions(int tempoption){
-        panel.seteffectoption(tempoption);
     }
 }

@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
-import java.io.*;
 import java.net.*;
 
 import java.util.logging.Level;
@@ -34,7 +33,7 @@ public class Main{
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
  
             message = in.readLine();
-            logger.log(Level.FINE, "Got message: " + message);
+            logger.log(Level.FINEST, "Got message: " + message);
             String[] parts = message.split(":");
             for(int i=1; i<parts.length; i++) {
                 dmx[i - 1] = Integer.parseInt(parts[i]);
