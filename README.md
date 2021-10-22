@@ -1,5 +1,5 @@
 # Beaser
-[![PayPal][badge_paypal]][paypal-donations] 
+[![PayPal][badge_paypal]][paypal-donations] [![CodeFactor](https://www.codefactor.io/repository/github/lukasgasp/beaser/badge?s=e6bb254c60f5f414d23bb944df6fe7da88a2e11a)](https://www.codefactor.io/repository/github/lukasgasp/beaser)
 > A little java/python project for using a Beamer as Laser over sACN
 
 <a href="#DMX-Footprint">DMX-Footprint</a> •
