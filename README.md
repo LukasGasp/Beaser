@@ -7,47 +7,36 @@
 <a href="#Macros">Macros</a> 
 
 # Control:
-You can control up to 3 independent objects. 
-## DMX-Footprint
-    01:  Mode 1 => Modes listed under #Modes
-    02:  Mode 2
-    03:  Mode 3
+The compiled Programm takes the universe 98 and has 5 Objects
+You can control multiple Objects. For this you can change the ```amount``` integer in the Java. It defines your objects. (Each Object takes 10 adresses)
+## DMX-Footprint per Fixture:
 
-    04:  Dimmer 1
-    05:  Dimmer 2
-    06:  Dimmer 3
+    01: Background R
+    02: Background G
+    03: Background B
 
-    07:  x-Position 1
-    08:  y-Position 1
-    09:  x-Position 2
-    10:  y-Position 2
-    11:  x-Position 3 
-    12:  y-Position 3
+    04: Macro                 => //TODO: Not done yet.     
+    05: Macro-Speed           => //TODO: Not done yet. Footprint is 10
 
-    13:  x-Size 1
-    14:  y-Size 1
-    15:  x-Size 2
-    16:  y-Size 2
-    17:  x-Size 3
-    18:  y-Size 3 
+## DMX-Footprint per Object
 
-    19:  R 1
-    20:  G 1
-    21:  B 1
+    01:  Mode                 => Modes listed under #Modes
 
-    22:  R 2
-    23:  G 2
-    24:  B 2
+    02:  Dimmer
 
-    25:  R 3
-    26:  G 3
-    27:  B 3
+    03:  x-Position
+    04:  y-Position
 
-    28: Effect options 1 => Options listed under #Effect Options
-    29: Effect options 2
-    30: Effect options 3
+    05:  x-Size
+    06:  y-Size
 
-    31: Macros => Macros listed under #Macros
+    07:  R
+    08:  G
+    09:  B
+
+    10: Effect options        => Options listed under #Effect Options
+
+    11: Shutter               => //TODO: Not done yet. Footprint is 10
 
 ## Modes:
     0: OFF

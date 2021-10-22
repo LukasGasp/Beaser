@@ -58,9 +58,13 @@ public class Main{
         logger.log(Level.INFO, "Creating Screen");
         mainscreen = new Screen();
         logger.log(Level.INFO, "Starting Python listerner");
-        python = Runtime.getRuntime().exec("python3 getsacn.py");
+        python = Runtime.getRuntime().exec("getsacn.exe");
         logger.log(Level.INFO, "Starting Main Function");
         new Main();
         logger.log(Level.WARNING, "Main function finished");
-     }
+    }
+
+    public int[] getdmx(){
+        return dmx;
+    }
 }

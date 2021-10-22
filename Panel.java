@@ -23,7 +23,7 @@ public class Panel extends JLayeredPane{
 
     int[] eoption;
 
-    int[] macro;
+    int macro;
 
     int[] id; // ID is for helping programming
 
@@ -126,8 +126,8 @@ public class Panel extends JLayeredPane{
         eoption[temppanel] = tempoption;
     }
 
-    public void marco(int temppanel, int tempmacro){
-        macro[temppanel] = tempmacro;
+    public void setmarco(int tempmacro){
+        macro = tempmacro;
     }
 
     public void setwindowsize(int temppanel, int twxsize, int twysize){
@@ -140,55 +140,59 @@ public class Panel extends JLayeredPane{
     @Override
     public void paint(Graphics g){
         super.paintComponent(g);
-        for(int i = 0; i < id.length; i++){
-            g.setColor(maincolors[i]);
-            switch(mode[i]) {
-                case 0 :
-                // Off
-                break;
-                case 1 :
-                // Horizontal Line
-                g.fillRect(0, y[i], wxsize[i], height[i]);
-                break;
-                case 2 :
-                    // Vertical Line
-                    g.fillRect(x[i], 0, width[i], wysize[i]);
+        if(macro != 0){
+            System.out.println("Macro not done yet"); //TODO: Macros
+        } else{
+            for(int i = 0; i < id.length; i++){
+                g.setColor(maincolors[i]);
+                switch(mode[i]) {
+                    case 0 :
+                    // Off
                     break;
-                case 3 :
-                    // Rectangle
-                    g.fillRect(x[i], y[i], width[i], height[i]);
+                    case 1 :
+                    // Horizontal Line
+                    g.fillRect(0, y[i], wxsize[i], height[i]);
                     break;
-                case 4 :
-                    // Oval
-                    g.fillOval(x[i], y[i], width[i], height[i]);
-                    break;
-                case 5 : 
-                    // Poly Line (?)
-                    int tx[] = {100, 200, 300};
-                    int ty[] = {400, 300, 400};
-                    int n = 3;
-            
-                    g.drawPolyline(tx, ty, n);
-                    break;
-                case 6 :
-                if(eoption[i] >= 0 && eoption[i] <= 9){
-                    Image image = new ImageIcon("images/ngklogo.png").getImage();
-                    g.drawImage(image, x[i], y[i], width[i], height[i], null);
-                    break;
-                } else if(eoption[i] >= 10 && eoption[i] <= 19){   
-                    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
-                    g.drawString("NGK", x[i], y[i]); 
-                    break;
-                    //TODO: Images: FMT; Written: NGK
+                    case 2 :
+                        // Vertical Line
+                        g.fillRect(x[i], 0, width[i], wysize[i]);
+                        break;
+                    case 3 :
+                        // Rectangle
+                        g.fillRect(x[i], y[i], width[i], height[i]);
+                        break;
+                    case 4 :
+                        // Oval
+                        g.fillOval(x[i], y[i], width[i], height[i]);
+                        break;
+                    case 5 : 
+                        // Poly Line (?)
+                        int tx[] = {100, 200, 300};
+                        int ty[] = {400, 300, 400};
+                        int n = 3;
+                
+                        g.drawPolyline(tx, ty, n);
+                        break;
+                    case 6 :
+                    if(eoption[i] >= 0 && eoption[i] <= 9){
+                        Image image = new ImageIcon("images/ngklogo.png").getImage();
+                        g.drawImage(image, x[i], y[i], width[i], height[i], null);
+                        break;
+                    } else if(eoption[i] >= 10 && eoption[i] <= 19){   
+                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g.drawString("NGK", x[i], y[i]); 
+                        break;
+                        //TODO: Images: FMT; Written: NGK
+                    }
+                    case 7 :
+                        // Arc
+                        g.fillArc(400, 200, 100, 100, 0, 90);
+                        break;
+                    default :
+                        //g.setFont(new Font(Font.SANS_SERIF, Font.BOLD,30));
+                        //g.drawString("Beaser", 50, 50);
+                        break;
                 }
-                case 7 :
-                    // Arc
-                    g.fillArc(400, 200, 100, 100, 0, 90);
-                    break;
-                default :
-                    //g.setFont(new Font(Font.SANS_SERIF, Font.BOLD,30));
-                    //g.drawString("Beaser", 50, 50);
-                    break;
             }
         }
     }

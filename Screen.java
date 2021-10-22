@@ -51,18 +51,17 @@ public class Screen extends JFrame{
     public void givedata(int[] dmx){
         windowSize = getSize(); // For right sizing of object sizes
         dmxcache = dmx;
-        //for(int i=1; i<dmxcache.length; i++){  //Prints received Data
-        //    System.out.println(dmxcache[i]);
-        //}
-        datapointcache = 0;
+        Color bg = new Color(dmxcache[0], dmxcache[1], dmxcache[2]);
+        getContentPane().setBackground(bg);
+        datapointcache = 3;
         for(int i = 0; i < amount; i++){
             panels.setwindowsize(i, getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
-            setmode(i, datapointcache, i);            // Rel Channel : 1
-            dim(i, datapointcache + 1);         // Rel Channel : 2
-            setpos(i, datapointcache + 2);      // Rel Channel : 3 + 4
-            size(i, datapointcache + 4);        // Rel Channel : 5 + 6
-            rgb(i, datapointcache + 6);         // Rel Channel : 7 + 8 + 9
-            eoptions(i, datapointcache + 9);    // Rel Channel : 10
+            setmode(i, datapointcache, i);                              // Rel Channel : 1
+            dim(i, datapointcache + 1);                                 // Rel Channel : 2
+            setpos(i, datapointcache + 2);                              // Rel Channel : 3 + 4
+            size(i, datapointcache + 4);                                // Rel Channel : 5 + 6
+            rgb(i, datapointcache + 6);                                 // Rel Channel : 7 + 8 + 9
+            eoptions(i, datapointcache + 9);                            // Rel Channel : 10
             panels.forcerepaint();
             datapointcache = datapointcache + 10;
         }
