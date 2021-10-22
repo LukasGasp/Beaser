@@ -136,9 +136,9 @@ public class Screen extends JFrame{
             }
         } else if(dmxcache[datapoint] >= 60 && dmxcache[datapoint] <= 69){
             if (panels.getmode(tempobject) != 6){
-                panels.setmode(tempobject, 6); // NGK - Logo
+                panels.setmode(tempobject, 6); // Image
                 logger.log(Level.INFO, String.valueOf(tempobject));
-                logger.log(Level.INFO, "Mode to NGK - Logo");
+                logger.log(Level.INFO, "Mode to Image");
             }
         } else if(dmxcache[datapoint] >= 70 && dmxcache[datapoint] <= 79){
             if (panels.getmode(tempobject) != 7){

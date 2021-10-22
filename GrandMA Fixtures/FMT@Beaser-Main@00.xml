@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MA xmlns:xml="http://www.w3.org/XML/1998/namespace" major_vers="3" minor_vers="2" stream_vers="2">
+  <Info datetime="2021-10-22T13:53:34" showfile="ma fixture builder"/>
+  <FixtureType index="0" name="Beaser-Main">
+    <InfoItems>
+      <Info>Created using MA FixtureBuilder version v1.9.0</Info>
+    </InfoItems>
+    <short_name>Beas-Main</short_name>
+    <manufacturer>FMT</manufacturer>
+    <short_manufacturer>FMT</short_manufacturer>
+    <Modules index="0">
+      <Module index="0" name="Module" class="Headmover" beamtype="Spot" beam_angle="19" beam_intensity="10000">
+        <Body>
+          <Size x="0.5" y="0.5" z="0.5"/>
+        </Body>
+        <ChannelType index="0" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR" coarse="1">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB1" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="1" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR" coarse="2">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB2" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="2" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR" coarse="3">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB3" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+      </Module>
+    </Modules>
+    <Instances index="1">
+      <Instance index="0" patch="1" module_index="0"/>
+    </Instances>
+    <Wheels index="2"/>
+    <FixtureMacroCollect index="5"/>
+  </FixtureType>
+</MA>

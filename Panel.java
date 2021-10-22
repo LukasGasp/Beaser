@@ -173,16 +173,32 @@ public class Panel extends JLayeredPane{
                 
                         g.drawPolyline(tx, ty, n);
                         break;
+                        //TODO: Position / Size
                     case 6 :
                     if(eoption[i] >= 0 && eoption[i] <= 9){
+                        break;
+                    } else if(eoption[i] >= 10 && eoption[i] <= 19){ 
                         Image image = new ImageIcon("images/ngklogo.png").getImage();
                         g.drawImage(image, x[i], y[i], width[i], height[i], null);
                         break;
-                    } else if(eoption[i] >= 10 && eoption[i] <= 19){   
+                    } else if(eoption[i] >= 20 && eoption[i] <= 29){   
                         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
-                        g.drawString("NGK", x[i], y[i]); 
+                        g.drawString("N", x[i], y[i]); 
                         break;
-                        //TODO: Images: FMT; Written: NGK
+                    } else if(eoption[i] >= 30 && eoption[i] <= 39){   
+                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g.drawString("G", x[i], y[i]); 
+                        break;
+                    } else if(eoption[i] >= 40 && eoption[i] <= 49){   
+                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g.drawString("K", x[i], y[i]); 
+                        break;
+                        //TODO: Test Written NGK
+                    } else if(eoption[i] >= 50 && eoption[i] <= 59){   
+                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g.drawString("K", x[i], y[i]); 
+                        break;
+                        //TODO: FMT
                     }
                     case 7 :
                         // Arc

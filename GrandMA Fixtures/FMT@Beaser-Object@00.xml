@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MA xmlns:xml="http://www.w3.org/XML/1998/namespace" major_vers="3" minor_vers="2" stream_vers="2">
+  <Info datetime="2021-10-22T15:44:42" showfile="ma fixture builder"/>
+  <FixtureType index="0" name="Beaser-Object">
+    <InfoItems>
+      <Info>Created using MA FixtureBuilder version v1.9.0</Info>
+    </InfoItems>
+    <short_name>Beaser-O</short_name>
+    <manufacturer>FMT</manufacturer>
+    <short_manufacturer>FMT</short_manufacturer>
+    <Modules index="0">
+      <Module index="0" name="Module" class="LED" beamtype="Spot" beam_angle="19" beam_intensity="10000">
+        <Body>
+          <Size x="0.5" y="0.5" z="0.5"/>
+        </Body>
+        <ChannelType index="9" attribute="GOBO1" feature="GOBO1" preset="GOBO" coarse="1">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777220" physfrom="0" physto="1" wheel="2" subattribute="GOBO1" attribute="GOBO1" feature="GOBO1" preset="GOBO">
+            <ChannelSet index="0" name="OFF" from_dmx="0" to_dmx="9"/>
+            <ChannelSet index="1" name="Horizontal Bar" from_dmx="10" to_dmx="19" slot_index="1"/>
+            <ChannelSet index="2" name="vertical Bar" from_dmx="20" to_dmx="29" slot_index="2"/>
+            <ChannelSet index="3" name="Rectangle" from_dmx="30" to_dmx="39" slot_index="3"/>
+            <ChannelSet index="4" name="Oval" from_dmx="40" to_dmx="49" slot_index="4"/>
+            <ChannelSet index="5" name="Poly Line" from_dmx="50" to_dmx="59" slot_index="7"/>
+            <ChannelSet index="6" name="Image" from_dmx="60" to_dmx="69" slot_index="6"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="1" attribute="DIM" feature="DIMMER" preset="DIMMER" coarse="2">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="DIM" attribute="DIM" feature="DIMMER" preset="DIMMER">
+            <ChannelSet index="0" name="closed" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="open" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="2" attribute="COORDINATEX" feature="POSITION" preset="POSITION" coarse="3">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COORDINATEX" attribute="COORDINATEX" feature="POSITION" preset="POSITION">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="3" attribute="COORDINATEY" feature="POSITION" preset="POSITION" coarse="4">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COORDINATEY" attribute="COORDINATEY" feature="POSITION" preset="POSITION">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="4" attribute="SIZEX" feature="POSITION" preset="POSITION" coarse="5">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="SIZEX" attribute="SIZEX" feature="POSITION" preset="POSITION">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="5" attribute="SIZEY" feature="POSITION" preset="POSITION" coarse="6">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="SIZEY" attribute="SIZEY" feature="POSITION" preset="POSITION">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="6" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR" coarse="7">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB1" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="7" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR" coarse="8">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB2" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="8" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR" coarse="9">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB3" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="9" attribute="GOBO2" feature="GOBO2" preset="GOBO" coarse="10">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="GOBO2" attribute="GOBO2" feature="GOBO2" preset="GOBO">
+            <ChannelSet index="0" name="None" from_dmx="0" to_dmx="9"/>
+            <ChannelSet index="1" name="NGK-Logo" from_dmx="10" to_dmx="19"/>
+            <ChannelSet index="1" name="N" from_dmx="20" to_dmx="29"/>
+            <ChannelSet index="1" name="G" from_dmx="30" to_dmx="39"/>
+            <ChannelSet index="1" name="K" from_dmx="40" to_dmx="49"/>
+            <ChannelSet index="1" name="FMT-Logo" from_dmx="50" to_dmx="59"/>
+          </ChannelFunction>
+        </ChannelType>
+      </Module>
+    </Modules>
+    <Instances index="1">
+      <Instance index="0" patch="1" module_index="0"/>
+    </Instances>
+    <Wheels index="2">
+      <Wheel index="0" subattribute="GOBO1" attribute="GOBO1" feature="GOBO1" preset="GOBO">
+        <Slot index="0" media_name="Misc blackout" media_filename="Misc/blackout.png"/>
+        <Slot index="1" media_name="varilite 0479004010" media_filename="carallon/gobos/varilite/0479004010.png"/>
+        <Slot index="2" media_name="varilite 0479004011" media_filename="carallon/gobos/varilite/0479004011.png"/>
+        <Slot index="3" media_name="goboland 1139002160011" media_filename="carallon/gobos/goboland/1139002160011.png"/>
+        <Slot index="4" media_name="goboland 1139002160002" media_filename="carallon/gobos/goboland/1139002160002.png"/>
+        <Slot index="5" media_name="goboland 1139002165015" media_filename="carallon/gobos/goboland/1139002165015.png"/>
+        <Slot index="6" media_name="goboland 1139002190000" media_filename="carallon/gobos/goboland/1139002190000.png"/>
+        <Slot index="7" media_name="gam 018900283" media_filename="carallon/gobos/gam/018900283.png"/>
+        <Slot index="8" media_name="goboland 1139002160021" media_filename="carallon/gobos/goboland/1139002160021.png"/>
+        <Slot index="9" media_name="goboland 1139002165020" media_filename="carallon/gobos/goboland/1139002165020.png"/>
+      </Wheel>
+    </Wheels>
+    <FixtureMacroCollect index="5"/>
+  </FixtureType>
+</MA>
