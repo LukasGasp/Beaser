@@ -1,70 +1,37 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.logging.Logger;
-import java.net.*;
-
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Main{
+public class Main {
 
-    static Logger logger = Logger.getLogger("Logger for main");
-    int[] dmx;
-    int port = 1994;
+    static Logger logger = Logger.getLogger("Beaser logger");
     static Screen mainscreen;
-    ServerSocket server;
-    static boolean run = true;
 
-    static Process python;
-
-    public Main() throws NumberFormatException, IOException{
-
-        dmx  = new int[512];
-
-        String message;
-
-        server = new ServerSocket(port);
-        logger.log(Level.INFO, "Java listening on Port " + String.valueOf(port));
-
-        while(run) {
-            logger.log(Level.FINE, "Listening");
-            Socket client = server.accept();
-            logger.log(Level.FINER, "Got data");
-            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
- 
-            message = in.readLine();
-            logger.log(Level.FINEST, "Got message: " + message);
-            String[] parts = message.split(":");
-            for(int i=1; i<parts.length; i++) {
-                dmx[i - 1] = Integer.parseInt(parts[i]);
-            }
-            //for(int i=1; i<dmx.length; i++){  //Prints received Data
-            //    System.out.println(dmx[i]);
-            //}
-            mainscreen.givedata(dmx);
-        }
-        server.close();
-        logger.log(Level.WARNING, "Closed Server");
+    public static void main(String[] args) throws Exception {
+        run();
     }
 
-    public static void main(String[] args) throws IOException {
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run(){
-                python.destroy(); // Stops python Process #clean
-                run = false;
-                System.out.println("Shutdown");
-            }
-        }, "Shutdown-thread"));
-        logger.log(Level.INFO, "Creating Screen");
+    public static void run() throws Exception{
         mainscreen = new Screen();
-        logger.log(Level.INFO, "Starting Python listerner");
-        python = Runtime.getRuntime().exec("getsacn.exe");
-        logger.log(Level.INFO, "Starting Main Function");
-        new Main();
-        logger.log(Level.WARNING, "Main function finished");
-    }
 
-    public int[] getdmx(){
-        return dmx;
+        DatagramSocket socket = new DatagramSocket(5568);
+        byte[] buffer = new byte[638];
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+
+        DMX dmx;
+        dmx = new DMX();
+
+        logger.log(Level.INFO, "Listening...");
+        socket.receive(packet);
+        dmx.processPacket(buffer);
+        logger.log(Level.INFO, "Universe: " + dmx.universe);
+
+        while (true) {
+            socket.receive(packet);
+            dmx.processPacket(buffer);
+            //TODO: Only do something if data has changed!
+            mainscreen.givedata(dmx.data);
+        }
     }
 }
