@@ -35,6 +35,25 @@ public class Screen extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         logger.log(Level.INFO, "Screen ready");
 
+        JButton pauseButton = new JButton("Start Beaser");
+        add(pauseButton);
+        setVisible(true);
+
+        while(!pauseButton.getModel().isPressed()){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        
+        remove(pauseButton);
+        dispose();
+
+        // Fullscreen
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);;
+
         getContentPane().setBackground(Color.BLACK);
 
         panels = new Panel(amount);
@@ -101,55 +120,55 @@ public class Screen extends JFrame{
         if(dmxcache[datapoint] >= 0 && dmxcache[datapoint] <= 9){
             if (panels.getmode(tempobject) != 0){
                 panels.setmode(tempobject, 0); // OFF
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to off");
             }
         } else if(dmxcache[datapoint] >= 10 && dmxcache[datapoint] <= 19){
             if (panels.getmode(tempobject) != 1){
                 panels.setmode(tempobject, 1); // Horizontal Line
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Horizontal Line");
             }
         } else if(dmxcache[datapoint] >= 20 && dmxcache[datapoint] <= 29){
             if (panels.getmode(tempobject) != 2){ 
                 panels.setmode(tempobject, 2); // Vertical Line
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Vertical Line");
             }
         } else if(dmxcache[datapoint] >= 30 && dmxcache[datapoint] <= 39){
             if (panels.getmode(tempobject) != 3){
                 panels.setmode(tempobject, 3); // Rectangle
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to rectangle");
             }
         } else if(dmxcache[datapoint] >= 40 && dmxcache[datapoint] <= 49){
             if (panels.getmode(tempobject) != 4){
                 panels.setmode(tempobject, 4); // Oval
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to oval");
             }
         } else if(dmxcache[datapoint] >= 50 && dmxcache[datapoint] <= 59){
             if (panels.getmode(tempobject) != 5){
                 panels.setmode(tempobject, 5); // Poly Line
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Poly Line");
             }
         } else if(dmxcache[datapoint] >= 60 && dmxcache[datapoint] <= 69){
             if (panels.getmode(tempobject) != 6){
                 panels.setmode(tempobject, 6); // Image
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Image");
             }
         } else if(dmxcache[datapoint] >= 70 && dmxcache[datapoint] <= 79){
             if (panels.getmode(tempobject) != 7){
                 panels.setmode(tempobject, 7); // Arc
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode to Arc");
             }
         } else {
             if (panels.getmode(tempobject) != 0){
                 panels.setmode(tempobject, 0);
-                logger.log(Level.INFO, String.valueOf(tempobject));
+                logger.log(Level.INFO, "Object: " + String.valueOf(tempobject));
                 logger.log(Level.INFO, "Mode not in defined level");
             }
         }
