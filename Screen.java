@@ -36,15 +36,22 @@ public class Screen extends JFrame{
         logger.log(Level.INFO, "Screen ready");
 
         JButton pauseButton = new JButton("Start Beaser");
+        pauseButton.setBackground(new Color(0, 0, 0));
+        pauseButton.setForeground(new Color(255, 255, 255));
         add(pauseButton);
         setVisible(true);
 
-        while(!pauseButton.getModel().isPressed()){
+        for (int i = 0; i < 1000; i++) {
+            if(pauseButton.getModel().isPressed()){
+                break;
+            }
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+            pauseButton.setText("Press to start Beaser (" + String.valueOf((100 - i)/10) + "s)");
+            pauseButton.setBorderPainted(false);
         }
         
         remove(pauseButton);
