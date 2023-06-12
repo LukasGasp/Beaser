@@ -116,7 +116,9 @@ public class Screen extends JFrame{
         float cx = dmxcache[datapoint]; // Sonst keine nachkommastellen
         float cy = dmxcache[datapoint + 1]; // Gleiches hier
         //TODO: Smooth Zoom (x+y) => Wahrscheinlich floats statt int
-        panels.setsize(tempobject, Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.height));
+
+        // Die folgende Methode, hat in beiden Fällen * width, damit bei gleichen Werten eine Recheckige Figur entsteht, statt eine entsprechend des Screens gestreckte Figur
+        panels.setsize(tempobject, Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.width)); //TODO: Setting machen, ob sich am Screen orientiert werden soll
     }
 
     public void dim(int tempobject, int datapoint){
