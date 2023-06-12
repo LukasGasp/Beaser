@@ -84,12 +84,13 @@ public class Screen extends JFrame{
             panels.setwindowsize(i, getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
             setmode(i, datapointcache, i);                              // Rel Channel : 1
             dim(i, datapointcache + 1);                                 // Rel Channel : 2
-            size(i, datapointcache + 4);                                // Rel Channel : 5 + 6
+            size(i, datapointcache + 4);                                // Rel Channel : 5 + 6              // Muss vor setpos aufgerufen werden
             setpos(i, datapointcache + 2);                              // Rel Channel : 3 + 4
-            rgb(i, datapointcache + 6);                                 // Rel Channel : 7 + 8 + 9
-            eoptions(i, datapointcache + 9);                            // Rel Channel : 10
+            rotation(i, datapointcache + 6);                            // Rel Channel : 7
+            rgb(i, datapointcache + 7);                                 // Rel Channel : 7 + 8 + 9
+            eoptions(i, datapointcache + 10);                           // Rel Channel : 10
             panels.forcerepaint();
-            datapointcache = datapointcache + 10;
+            datapointcache = datapointcache + 11;
         }
     }
 
@@ -119,6 +120,11 @@ public class Screen extends JFrame{
 
         // Die folgende Methode, hat in beiden Fällen * width, damit bei gleichen Werten eine Recheckige Figur entsteht, statt eine entsprechend des Screens gestreckte Figur
         panels.setsize(tempobject, Math.round((cx / 255) * windowSize.width), Math.round((cy / 255) * windowSize.width)); //TODO: Setting machen, ob sich am Screen orientiert werden soll
+    }
+
+    public void rotation(int tempobject, int datapoint){
+        float percent = dmxcache[datapoint];
+        panels.setrotation(tempobject, (int)((percent/255)*360));
     }
 
     public void dim(int tempobject, int datapoint){

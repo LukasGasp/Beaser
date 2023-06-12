@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MA xmlns:xml="http://www.w3.org/XML/1998/namespace" major_vers="3" minor_vers="2" stream_vers="2">
-  <Info datetime="2023-6-12T21:56:20" showfile="ma fixture builder"/>
+  <Info datetime="2023-6-13T0:3:2" showfile="ma fixture builder"/>
   <FixtureType index="0" name="Beaser-Object">
     <InfoItems>
       <Info>Created using MA FixtureBuilder version v1.9.0</Info>
@@ -44,19 +44,19 @@
             <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
           </ChannelFunction>
         </ChannelType>
-        <ChannelType index="6" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR" coarse="7" default="255">
+        <ChannelType index="6" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR" coarse="8" default="255">
           <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB1" attribute="COLORRGB1" feature="COLORRGB" preset="COLOR">
             <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
             <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
           </ChannelFunction>
         </ChannelType>
-        <ChannelType index="7" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR" coarse="8" default="255">
+        <ChannelType index="7" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR" coarse="9" default="255">
           <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB2" attribute="COLORRGB2" feature="COLORRGB" preset="COLOR">
             <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
             <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
           </ChannelFunction>
         </ChannelType>
-        <ChannelType index="8" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR" coarse="9" default="255">
+        <ChannelType index="8" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR" coarse="10" default="255">
           <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="COLORRGB3" attribute="COLORRGB3" feature="COLORRGB" preset="COLOR">
             <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
             <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
@@ -79,6 +79,18 @@
             <ChannelSet/>
           </ChannelFunction>
           <ChannelFunction/>
+        </ChannelType>
+        <ChannelType index="10" attribute="GOBO2" feature="GOBO2" preset="GOBO" coarse="11" default="10">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="GOBO2" attribute="GOBO2" feature="GOBO2" preset="GOBO">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
+        </ChannelType>
+        <ChannelType index="11" attribute="GOBO1_POS" feature="GOBO1" preset="GOBO" coarse="7">
+          <ChannelFunction index="0" from="0" to="100" min_dmx_24="0" max_dmx_24="16777215" physfrom="0" physto="1" subattribute="GOBO1_POS" attribute="GOBO1_POS" feature="GOBO1" preset="GOBO">
+            <ChannelSet index="0" name="min" from_dmx="0" to_dmx="0"/>
+            <ChannelSet index="1" name="max" from_dmx="255" to_dmx="255"/>
+          </ChannelFunction>
         </ChannelType>
       </Module>
     </Modules>

@@ -30,13 +30,15 @@ You can control multiple Objects. For this you can change the ```amount``` integ
     05:  x-Size
     06:  y-Size
 
-    07:  R
-    08:  G
-    09:  B
+    07: Rotation
 
-    10: Effect options        => Options listed under #Effect Options
+    08:  R
+    09:  G
+    10:  B
 
-    11: Shutter               => //TODO: Not done yet. Footprint is 10
+    11: Effect options        => Options listed under #Effect Options
+
+    12: Shutter               => //TODO: Not done yet. Footprint is 11
 
 ## Modes:
     0: OFF

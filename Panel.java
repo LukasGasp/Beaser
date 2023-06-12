@@ -3,7 +3,11 @@ import javax.swing.JLayeredPane;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+
+import javax.swing.JPanel;
 
 public class Panel extends JLayeredPane{
     
@@ -21,6 +25,8 @@ public class Panel extends JLayeredPane{
     int[] wxsize;
     int[] wysize;
 
+    int[] rotation;
+
     int[] eoption;
 
     int macro;
@@ -33,6 +39,7 @@ public class Panel extends JLayeredPane{
         y = new int[tempamount];
         width = new int[tempamount];
         height = new int[tempamount];
+        rotation = new int[tempamount];
         maincolors = new Color[tempamount];
         mode = new int[tempamount];
         dim = new float[tempamount];
@@ -45,6 +52,7 @@ public class Panel extends JLayeredPane{
             y[i] = 0;
             width[i] = 0;
             height[i] = 0;
+            rotation[i] = 0;
             maincolors[i] = new Color(0, 0, 0);
             dim[i] = 0;
             mode[i] = 0;
@@ -107,6 +115,16 @@ public class Panel extends JLayeredPane{
         return height[temppanel];
     }
 
+    // ============ Rotation ============ \\
+
+    public void setrotation(int temppanel, int tangle){
+        rotation[temppanel] = tangle;
+    }
+
+    public int setrotation(int temppanel){
+        return rotation[temppanel];
+    }
+
     // ============ Color ============ \\
     
     public void setcolor(int temppanel, int tred, int tgreen, int tblue){
@@ -140,30 +158,32 @@ public class Panel extends JLayeredPane{
     @Override
     public void paint(Graphics g){
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
         if(macro != 0){
             System.out.println("Macro not done yet"); //TODO: Macros
         } else{
             for(int i = 0; i < id.length; i++){
-                g.setColor(maincolors[i]);
+                g2d.setColor(maincolors[i]);
+                g2d.rotate(Math.toRadians(rotation[i]), x[i] + width[i]/2, y[i] + height[i]/2);
                 switch(mode[i]) {
                     case 0 :
                     // Off
                     break;
                     case 1 :
-                    // Horizontal Line
-                    g.fillRect(0, y[i], wxsize[i], height[i]);
-                    break;
+                        // Horizontal Line
+                        g2d.fillRect(0, y[i], wxsize[i], height[i]);
+                        break;
                     case 2 :
                         // Vertical Line
-                        g.fillRect(x[i], 0, width[i], wysize[i]);
+                        g2d.fillRect(x[i], 0, width[i], wysize[i]);
                         break;
                     case 3 :
-                        // Rectangle
-                        g.fillRect(x[i], y[i], width[i], height[i]);
+                        // Rectang2dle
+                        g2d.fillRect(x[i], y[i], width[i], height[i]);
                         break;
                     case 4 :
                         // Oval
-                        g.fillOval(x[i], y[i], width[i], height[i]);
+                        g2d.fillOval(x[i], y[i], width[i], height[i]);
                         break;
                     case 5 : 
                         // Poly Line (?)
@@ -171,7 +191,7 @@ public class Panel extends JLayeredPane{
                         int ty[] = {400, 300, 400};
                         int n = 3;
                 
-                        g.drawPolyline(tx, ty, n);
+                        g2d.drawPolyline(tx, ty, n);
                         break;
                         //TODO: Position / Size
                     case 6 :
@@ -179,37 +199,39 @@ public class Panel extends JLayeredPane{
                         break;
                     } else if(eoption[i] >= 10 && eoption[i] <= 19){ 
                         Image image = new ImageIcon("images/ngklogo.png").getImage();
-                        g.drawImage(image, x[i], y[i], width[i], height[i], null);
+                        g2d.drawImage(image, x[i], y[i], width[i], height[i], null);
                         break;
                     } else if(eoption[i] >= 20 && eoption[i] <= 29){   
-                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
-                        g.drawString("N", x[i], y[i]); 
+                        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g2d.drawString("N", x[i], y[i]); 
                         break;
                     } else if(eoption[i] >= 30 && eoption[i] <= 39){   
-                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
-                        g.drawString("G", x[i], y[i]); 
+                        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g2d.drawString("G", x[i], y[i]); 
                         break;
                     } else if(eoption[i] >= 40 && eoption[i] <= 49){   
-                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
-                        g.drawString("K", x[i], y[i]); 
+                        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g2d.drawString("K", x[i], y[i]); 
                         break;
                         //TODO: Test Written NGK
                     } else if(eoption[i] >= 50 && eoption[i] <= 59){   
-                        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
-                        g.drawString("K", x[i], y[i]); 
+                        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, width[i]));
+                        g2d.drawString("K", x[i], y[i]); 
                         break;
                         //TODO: FMT
                     }
                     case 7 :
                         // Arc
-                        g.fillArc(400, 200, 100, 100, 0, 90);
+                        g2d.fillArc(400, 200, 100, 100, 0, 90);
                         break;
                     default :
                         //g.setFont(new Font(Font.SANS_SERIF, Font.BOLD,30));
                         //g.drawString("Beaser", 50, 50);
                         break;
                 }
+                g2d.setTransform(new AffineTransform()); // Zurück auf 0 drehen, da weitere Objekte gezeichnet werden
             }
+            g2d.dispose();
         }
     }
 
