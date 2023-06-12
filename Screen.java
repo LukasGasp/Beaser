@@ -84,8 +84,8 @@ public class Screen extends JFrame{
             panels.setwindowsize(i, getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
             setmode(i, datapointcache, i);                              // Rel Channel : 1
             dim(i, datapointcache + 1);                                 // Rel Channel : 2
-            setpos(i, datapointcache + 2);                              // Rel Channel : 3 + 4
             size(i, datapointcache + 4);                                // Rel Channel : 5 + 6
+            setpos(i, datapointcache + 2);                              // Rel Channel : 3 + 4
             rgb(i, datapointcache + 6);                                 // Rel Channel : 7 + 8 + 9
             eoptions(i, datapointcache + 9);                            // Rel Channel : 10
             panels.forcerepaint();
