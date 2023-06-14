@@ -7,8 +7,10 @@ public class Main {
 
     static Logger logger = Logger.getLogger("Beaser logger");
     static Screen mainscreen;
+    static Interface interface1;
 
     public static void main(String[] args) throws Exception {
+        interface1 = new Interface();
         run();
     }
 

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beaser</title>
+    <style>
+
+        body {
+            background-color: gray;
+            color: white;
+        }
+
+        .dot {
+            height: 20px;
+            width: 20px;
+            background-color: yellow;
+            border-radius: 50%;
+            animation-name: blink;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            position: relative;
+        }
+
+        .dot.up {
+            background-color: greenyellow;
+            animation-duration: 1s;
+        }
+
+        .dot.down {
+            background-color: red;
+            animation-duration: 0.5s;
+        }
+
+        #parent { display: flex; }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Beaser</h1>
+
+    <div id="parent">
+        <div class="dot"></div>
+        <div>&nbsp;&nbsp;&nbsp;</div>
+        <div id="status">Pinging...</div>
+    </div>
+
+    <div id="ip">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIP: UNKNOWN&nbsp&nbsp&nbspPORT: UNKNOWN</div>
+
+    <script>
+        function pingServer() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/ping', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('status').innerHTML = 'Beaser is up and running';
+                    document.querySelector('.dot').classList.remove('down');
+                    document.querySelector('.dot').classList.add('up');
+                } else {
+                    document.getElementById('status').innerHTML = 'Beaser is down';
+                    document.querySelector('.dot').classList.remove('up');
+                    document.querySelector('.dot').classList.add('down');
+                }
+            };
+            xhr.onerror = function() {
+                document.getElementById('status').innerHTML = 'Server is down';
+                document.querySelector('.dot').classList.remove('up');
+                document.querySelector('.dot').classList.add('down');
+            };
+            xhr.send();
+        }
+
+        pingServer();
+        setInterval(pingServer, 1000);
+
+        var ipRequest = new XMLHttpRequest();
+        var ip = "unknown";
+        ipRequest.open('GET', '/ip', true);
+        ipRequest.onload = function() {
+            if (ipRequest.status === 200) {
+                ip = ipRequest.responseText;
+            }
+        };
+        ipRequest.send();
+
+        var portRequest = new XMLHttpRequest();
+        portRequest.open('GET', '/port', true);
+        portRequest.onload = function() {
+            if (portRequest.status === 200) {
+                document.getElementById('ip').innerHTML = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIP: " + ip + "&nbsp&nbsp&nbspPort: " + portRequest.responseText;
+            }
+        };
+        portRequest.send();
+    </script>
+</body>
+</html>
