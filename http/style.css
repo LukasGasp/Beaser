@@ -1,0 +1,110 @@
+body {
+    background-color: #222;
+    color: #fff;
+}
+
+.dot {
+    height: 1.5em;
+    width: 1.5em;
+    background-color: yellow;
+    border-radius: 50%;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    position: relative;
+    display: inline-block;
+}
+
+.dot.up {
+    background-color: greenyellow;
+    animation-duration: 1s;
+}
+
+.dot.down {
+    background-color: red;
+    animation-duration: 0.5s;
+}
+
+.title {
+    font-size: 1.5em; /* use the same font size as other h1 elements on the page */
+    font-family: "Courier New", Courier, monospace; /* set the font family to a technical font */
+    text-indent: 0.5em;
+  }
+  
+  .subtitle {
+    font-family: "Courier New", Courier, monospace; /* set the font family to a technical font */
+  }
+
+#parent { display: flex; }
+
+#info {
+    padding-left: 10px;
+  } 
+
+#log-table {
+    width: 830px;
+}
+
+  footer {
+    position: absolute;
+    bottom: 0;
+  }
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+.flex-item {
+flex: 1 1 200px;
+border: 1px solid #ccc;
+padding: 10px;
+margin: 10px;
+}
+
+.button {
+    border: none;
+    width: 10em;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .button_red {
+    background-color: #222;
+    color: white;
+    border: 2px solid #af4c4c;
+  }
+  
+  .button_red:hover {
+    background-color: #af4c4c;
+    color: white;
+  }
+
+  .button_yellow {
+    background-color: #222;
+    color: white;
+    border: 2px solid #afa84c;
+  }
+  
+  .button_yellow:hover {
+    background-color: #afa84c;
+    color: white;
+  }

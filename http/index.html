@@ -1,106 +1,142 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Beaser</title>
-    <style>
-
-        body {
-            background-color: gray;
-            color: white;
-        }
-
-        .dot {
-            height: 20px;
-            width: 20px;
-            background-color: yellow;
-            border-radius: 50%;
-            animation-name: blink;
-            animation-duration: 0.5s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            position: relative;
-        }
-
-        .dot.up {
-            background-color: greenyellow;
-            animation-duration: 1s;
-        }
-
-        .dot.down {
-            background-color: red;
-            animation-duration: 0.5s;
-        }
-
-        #parent { display: flex; }
-
-        @keyframes blink {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Beaser</h1>
 
-    <div id="parent">
-        <div class="dot"></div>
-        <div>&nbsp;&nbsp;&nbsp;</div>
-        <div id="status">Pinging...</div>
+<body>
+
+    <table>
+        <tr>
+            <td class="dot"></td>
+            <td class="title">Beaser</td>
+        </tr>
+    </table>
+
+
+    <br>
+    <br>
+
+    <div class="flex-container">
+        <section>
+            <h3 class="subtitle">Status</h3>
+            <div id="info" class="flex-item">
+                <p id="status">Pinging...</p>
+                <p id="ip">IP: UNKNOWN</p>
+                <p id="host">HOST: UNKNOWN</p>
+                <p id="port">PORT: UNKNOWN</p>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="subtitle">DMX</h3>
+            <div id="info" class="flex-item">
+                <p id="universe">Universe: none</p>
+                <p id="address">Address: UNKNOWN</p>
+                <p id="panel">Panel: UNKNOWN</p>
+                <p id="port">Receiving: UNKNOWN</p>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="subtitle">Control</h3>
+            <div id="info" class="flex-item">
+                <button class="button button_yellow">DMX-Addr.</button>
+                <button class="button button_yellow">Panel</button>
+                <br>
+                <button class="button button_red">Test-Pattern</button>
+                <button class="button button_red">Shutdown</button>
+            </div>
+        </section>
     </div>
 
-    <div id="ip">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIP: UNKNOWN&nbsp&nbsp&nbspPORT: UNKNOWN</div>
+    <div class="flex-container">
+        <section>
+            <h3 class="subtitle">Logs</h3>
+            <div id="info" class="flex-item">
+                <table id="log-table">
+                    <thead>
+                      <tr>
+                        <th>Zeitstempel</th>
+                        <th>Nachricht</th>
+                        <th>Comming soon...</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+            </div>
+        </section>
+    </div>
 
     <script>
-        function pingServer() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/ping', true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    document.getElementById('status').innerHTML = 'Beaser is up and running';
+        const pingServer = async () => {
+            try {
+                const response = await fetch('/ping');
+                if (response.status === 200) {
+                    document.getElementById('status').innerHTML = 'Ping: &nbspYes';
                     document.querySelector('.dot').classList.remove('down');
                     document.querySelector('.dot').classList.add('up');
                 } else {
-                    document.getElementById('status').innerHTML = 'Beaser is down';
+                    document.getElementById('status').innerHTML = 'Ping: &nbspNo';
                     document.querySelector('.dot').classList.remove('up');
                     document.querySelector('.dot').classList.add('down');
                 }
-            };
-            xhr.onerror = function() {
-                document.getElementById('status').innerHTML = 'Server is down';
+            } catch (error) {
+                document.getElementById('status').innerHTML = "Ping: &nbspLocal Error!";
                 document.querySelector('.dot').classList.remove('up');
                 document.querySelector('.dot').classList.add('down');
-            };
-            xhr.send();
-        }
+            }
+        };
 
         pingServer();
         setInterval(pingServer, 1000);
 
-        var ipRequest = new XMLHttpRequest();
-        var ip = "unknown";
-        ipRequest.open('GET', '/ip', true);
-        ipRequest.onload = function() {
-            if (ipRequest.status === 200) {
-                ip = ipRequest.responseText;
+        const getIp = async () => {
+            try {
+                const response = await fetch('/ip');
+                const ip = await response.text();
+                return ip;
+            } catch (error) {
+                return 'UNKNOWN';
             }
         };
-        ipRequest.send();
 
-        var portRequest = new XMLHttpRequest();
-        portRequest.open('GET', '/port', true);
-        portRequest.onload = function() {
-            if (portRequest.status === 200) {
-                document.getElementById('ip').innerHTML = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspIP: " + ip + "&nbsp&nbsp&nbspPort: " + portRequest.responseText;
+        const getPort = async () => {
+            try {
+                const response = await fetch('/port');
+                const port = await response.text();
+                return port;
+            } catch (error) {
+                return 'UNKNOWN';
             }
         };
-        portRequest.send();
+
+        const getHost = async () => {
+            try {
+                const response = await fetch('/host');
+                const host = await response.text();
+                return host;
+            } catch (error) {
+                return 'UNKNOWN';
+            }
+        };
+
+        const updateIpAndPort = async () => {
+            const ip = await getIp();
+            const port = await getPort();
+            const host = await getHost();
+            document.getElementById('ip').innerHTML = `IP:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${ip}`;
+            document.getElementById('port').innerHTML = `Port: &nbsp&nbsp${port}`;
+            document.getElementById('host').innerHTML = `Host: &nbsp&nbsp${host}`;
+        };
+
+        updateIpAndPort();
+        setInterval(updateIpAndPort, 5000);
     </script>
 </body>
+<footer>
+    <p>&copy; 2023 Beaser by LukasGasp</p>
+</footer>
+
 </html>
