@@ -17,6 +17,10 @@ public class Interface {
     HttpServer server;
     Logger logger;
 
+    String universe = "none";
+    String dmx = "UNKNOWN";
+    int panel = 0;
+
     public Interface() throws Exception{
         logger = Logger.getLogger("Logger for Interface");
         server = HttpServer.create(new InetSocketAddress(8080), 1);
@@ -32,6 +36,18 @@ public class Interface {
 
     public String getAdress(){
         return server.getAddress().getHostString();
+    }
+
+    public void setUniverse(int tempuniverse){
+        universe = Integer.toString(tempuniverse);
+    }
+
+    public void setdmxaddress(int tempaddress){
+        dmx = Integer.toString(tempaddress) + " - " + Integer.toString(tempaddress + panel*11 + 3);
+    }
+
+    public void setpanels(int temppanel){
+        panel = temppanel;
     }
     
     class Handler implements HttpHandler {
@@ -60,12 +76,27 @@ public class Interface {
                 }
 
                 if(path.equals("ip")){
-                    response = InetAddress.getLocalHost().getHostAddress() + " (More possible!)";
+                    response = InetAddress.getLocalHost().getHostAddress();
                     code = 200;
                 }
 
                 if(path.equals("host")){
                     response = InetAddress.getLocalHost().getHostName();
+                    code = 200;
+                }
+
+                if(path.equals("universe")){
+                    response = universe;
+                    code = 200;
+                }
+
+                if(path.equals("dmx")){
+                    response = dmx;
+                    code = 200;
+                }
+
+                if(path.equals("panel")){
+                    response = Integer.toString(panel);
                     code = 200;
                 }
 

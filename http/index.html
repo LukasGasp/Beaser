@@ -23,31 +23,137 @@
         <section>
             <h3 class="subtitle">Status</h3>
             <div id="info" class="flex-item">
-                <p id="status">Pinging...</p>
-                <p id="ip">IP: UNKNOWN</p>
-                <p id="host">HOST: UNKNOWN</p>
-                <p id="port">PORT: UNKNOWN</p>
+                <table>
+                    <tr>
+                        <th>Ping</th>
+                        <th>
+                            <p id="status" class="tablevalue">pinging...</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>IP</th>
+                        <th>
+                            <p id="ip" class="tablevalue">UNKNOWN</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Host</th>
+                        <th>
+                            <p id="host" class="tablevalue">UNKNOWN</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Port</th>
+                        <th>
+                            <p id="port" class="tablevalue">UNKNOWN</p>
+                        </th>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section>
             <h3 class="subtitle">DMX</h3>
             <div id="info" class="flex-item">
-                <p id="universe">Universe: none</p>
-                <p id="address">Address: UNKNOWN</p>
-                <p id="panel">Panel: UNKNOWN</p>
-                <p id="port">Receiving: UNKNOWN</p>
+                <table>
+                    <tr>
+                        <th>Universe</th>
+                        <th>
+                            <p id="universe" class="tablevalue">pinging...</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <th>
+                            <p id="address" class="tablevalue">UNKNOWN</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Panel</th>
+                        <th>
+                            <p id="panel" class="tablevalue">UNKNOWN</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <th>
+                            <p id="port" class="tablevalue">/TODO</p>
+                        </th>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section>
             <h3 class="subtitle">Control</h3>
             <div id="info" class="flex-item">
+                <button class="button button_green">Name</button>
+                <button class="button button_green">Gobos</button>
+                <br>
                 <button class="button button_yellow">DMX-Addr.</button>
                 <button class="button button_yellow">Panel</button>
                 <br>
-                <button class="button button_red">Test-Pattern</button>
+                <button class="button button_red">Pattern</button>
                 <button class="button button_red">Shutdown</button>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="subtitle">Footprint (Panel)</h3>
+            <div id="info" class="flex-item">
+                <table>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                    <tr>
+                        <th>1.</th>
+                        <td>Mode</td>
+                    </tr>
+                    <tr>
+                        <th>2.</th>
+                        <td>Dimmer</td>
+                    </tr>
+                    <tr>
+                        <th>3.</th>
+                        <td>x-Position</td>
+                    </tr>
+                    <tr>
+                        <th>4.</th>
+                        <td>y-Postition</td>
+                    </tr>
+                    <tr>
+                        <th>5.</th>
+                        <td>x-Size</td>
+                    </tr>
+                    <tr>
+                        <th>6.</th>
+                        <td>y-Size</td>
+                    </tr>
+                    <tr>
+                        <th>7.</th>
+                        <td>Rotation
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>8.</th>
+                        <td>Red</td>
+                    </tr>
+                    <tr>
+                        <th>9.</th>
+                        <td>Green</td>
+                    </tr>
+                    <tr>
+                        <th>10.</th>
+                        <td>Blue</td>
+                    </tr>
+                    <tr>
+                        <th>11.</th>
+                        <td>Effect-Options</td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                </table>
             </div>
         </section>
     </div>
@@ -58,11 +164,11 @@
             <div id="info" class="flex-item">
                 <table id="log-table">
                     <thead>
-                      <tr>
-                        <th>Zeitstempel</th>
-                        <th>Nachricht</th>
-                        <th>Comming soon...</th>
-                      </tr>
+                        <tr>
+                            <th>Zeitstempel</th>
+                            <th>Nachricht</th>
+                            <th>Comming soon...</th>
+                        </tr>
                     </thead>
                     <tbody></tbody>
             </div>
@@ -74,16 +180,16 @@
             try {
                 const response = await fetch('/ping');
                 if (response.status === 200) {
-                    document.getElementById('status').innerHTML = 'Ping: &nbspYes';
+                    document.getElementById('status').innerHTML = 'Yes';
                     document.querySelector('.dot').classList.remove('down');
                     document.querySelector('.dot').classList.add('up');
                 } else {
-                    document.getElementById('status').innerHTML = 'Ping: &nbspNo';
+                    document.getElementById('status').innerHTML = 'down';
                     document.querySelector('.dot').classList.remove('up');
                     document.querySelector('.dot').classList.add('down');
                 }
             } catch (error) {
-                document.getElementById('status').innerHTML = "Ping: &nbspLocal Error!";
+                document.getElementById('status').innerHTML = "down";
                 document.querySelector('.dot').classList.remove('up');
                 document.querySelector('.dot').classList.add('down');
             }
@@ -126,13 +232,55 @@
             const ip = await getIp();
             const port = await getPort();
             const host = await getHost();
-            document.getElementById('ip').innerHTML = `IP:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${ip}`;
-            document.getElementById('port').innerHTML = `Port: &nbsp&nbsp${port}`;
-            document.getElementById('host').innerHTML = `Host: &nbsp&nbsp${host}`;
+            document.getElementById('ip').innerHTML = `${ip}`;
+            document.getElementById('port').innerHTML = `${port}`;
+            document.getElementById('host').innerHTML = `${host}`;
         };
 
         updateIpAndPort();
         setInterval(updateIpAndPort, 5000);
+
+        const getUniverse = async () => {
+            try {
+                const response = await fetch('/universe');
+                const universe = await response.text();
+                return universe;
+            } catch (error) {
+                return 'UNKNOWN';
+            }
+        };
+
+        const getdmxaddress = async () => {
+            try {
+                const response = await fetch('/dmx');
+                const address = await response.text();
+                return address;
+            } catch (error) {
+                return 'UNKNOWN';
+            }
+        };
+
+        const getpanel = async () => {
+            try {
+                const response = await fetch('/panel');
+                const panel = await response.text();
+                return panel;
+            } catch (error) {
+                return 'UNKNOWN';
+            }
+        };
+
+        const updatedmx = async () => {
+            const universe = await getUniverse();
+            const address = await getdmxaddress();
+            const panel = await getpanel();
+            document.getElementById('universe').innerHTML = `${universe}`;
+            document.getElementById('address').innerHTML = `${address}`;
+            document.getElementById('panel').innerHTML = `${panel}`;
+        };
+
+        updatedmx();
+        setInterval(updatedmx, 5000);
     </script>
 </body>
 <footer>

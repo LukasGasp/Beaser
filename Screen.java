@@ -25,8 +25,8 @@ public class Screen extends JFrame{
     Dimension windowSize;
     int datapointcache; // Stores which data of dmx has been used
 
-    public Screen(){
-        amount = 5;
+    public Screen(int panelamount){
+        amount = panelamount;
         dmxcache  = new int[512];
 
         // Configuring Screen

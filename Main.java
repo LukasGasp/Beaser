@@ -9,13 +9,17 @@ public class Main {
     static Screen mainscreen;
     static Interface interface1;
 
+    static int panelamount = 5;
+
     public static void main(String[] args) throws Exception {
         interface1 = new Interface();
         run();
     }
 
     public static void run() throws Exception{
-        mainscreen = new Screen();
+        mainscreen = new Screen(panelamount);
+        interface1.setpanels(panelamount);
+        interface1.setdmxaddress(0);
 
         DatagramSocket socket = new DatagramSocket(5568);
         byte[] buffer = new byte[638];
@@ -34,6 +38,7 @@ public class Main {
             dmx.processPacket(buffer);
             //TODO: Only do something if data has changed!
             mainscreen.givedata(dmx.data);
+            interface1.setUniverse(dmx.universe);
         }
     }
 }

@@ -27,37 +27,53 @@ body {
 }
 
 .title {
-    font-size: 1.5em; /* use the same font size as other h1 elements on the page */
-    font-family: "Courier New", Courier, monospace; /* set the font family to a technical font */
+    font-size: 1.5em;
+    /* use the same font size as other h1 elements on the page */
+    font-family: "Courier New", Courier, monospace;
+    /* set the font family to a technical font */
     text-indent: 0.5em;
-  }
-  
-  .subtitle {
-    font-family: "Courier New", Courier, monospace; /* set the font family to a technical font */
-  }
-
-#parent { display: flex; }
-
-#info {
-    padding-left: 10px;
-  } 
-
-#log-table {
-    width: 830px;
 }
 
-  footer {
+.subtitle {
+    font-family: "Courier New", Courier, monospace;
+    /* set the font family to a technical font */
+}
+
+#parent {
+    display: flex;
+}
+
+#info {
+    text-align: left;
+    padding: 0 15px 0 15px;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.tablevalue {
+    text-indent: 2em;
+    width: 150px;
+    text-align: left;
+}
+
+#log-table {
+    width: 800px;
+}
+
+footer {
     position: absolute;
     bottom: 0;
-  }
+}
 
 @keyframes blink {
     0% {
         opacity: 0;
     }
+
     50% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
@@ -66,45 +82,60 @@ body {
 .flex-container {
     display: flex;
     flex-wrap: wrap;
-  }
+}
 
 .flex-item {
-flex: 1 1 200px;
-border: 1px solid #ccc;
-padding: 10px;
-margin: 10px;
+    flex: 1 1 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
 }
 
 .button {
     border: none;
-    width: 10em;
+    width: 9em;
     color: white;
-    padding: 16px 32px;
+    padding: 16px 28px;
     text-decoration: none;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 7px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
-  }
-  
-  .button_red {
+}
+
+.button_red {
     background-color: #222;
     color: white;
     border: 2px solid #af4c4c;
-  }
-  
-  .button_red:hover {
+}
+
+.button_red:hover {
     background-color: #af4c4c;
     color: white;
-  }
+}
 
-  .button_yellow {
+.button_yellow {
     background-color: #222;
     color: white;
     border: 2px solid #afa84c;
-  }
-  
-  .button_yellow:hover {
+}
+
+.button_yellow:hover {
     background-color: #afa84c;
     color: white;
-  }
+}
+
+.button_green {
+    background-color: #222;
+    color: white;
+    border: 2px solid #6baf4c;
+}
+
+.button_green:hover {
+    background-color: #6baf4c;
+    color: white;
+}
+
+table {
+    border-collapse: collapse;
+}
