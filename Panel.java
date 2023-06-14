@@ -198,7 +198,7 @@ public class Panel extends JLayeredPane{
                     if(eoption[i] >= 0 && eoption[i] <= 9){
                         break;
                     } else if(eoption[i] >= 10 && eoption[i] <= 19){ 
-                        Image image = new ImageIcon("images/ngklogo.png").getImage();
+                        Image image = new ImageIcon("assets/ngklogo.png").getImage();
                         g2d.drawImage(image, x[i], y[i], width[i], height[i], null);
                         break;
                     } else if(eoption[i] >= 20 && eoption[i] <= 29){   
