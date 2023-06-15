@@ -70,35 +70,18 @@ public class Interface {
                     code = 200;
                 }
 
-                if(path.equals("port")){
-                    response = Integer.toString(getPort());
-                    code = 200;
-                }
-
-                if(path.equals("ip")){
-                    response = InetAddress.getLocalHost().getHostAddress();
-                    code = 200;
-                }
-
-                if(path.equals("host")){
-                    response = InetAddress.getLocalHost().getHostName();
-                    code = 200;
-                }
-
-                if(path.equals("universe")){
-                    response = universe;
+                if (path.equals("status")) {
+                    response = "{\"ip\":\"" + InetAddress.getLocalHost().getHostAddress() + "\", \"port\": \"" + Integer.toString(getPort()) + "\", \"host\":\"" + InetAddress.getLocalHost().getHostName() + "\"}";
+                    t.getResponseHeaders().set("Content-Type", "application/json");
                     code = 200;
                 }
 
                 if(path.equals("dmx")){
-                    response = dmx;
+                    response = "{\"universe\":\"" + universe + "\", \"address\": \"" + dmx + "\", \"panel\":\"" + Integer.toString(panel) + "\"}";
+                    t.getResponseHeaders().set("Content-Type", "application/json");
                     code = 200;
                 }
 
-                if(path.equals("panel")){
-                    response = Integer.toString(panel);
-                    code = 200;
-                }
 
                 t.sendResponseHeaders(code, response.length());
                 OutputStream os = t.getResponseBody();
