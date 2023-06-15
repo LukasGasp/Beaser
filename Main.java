@@ -19,7 +19,7 @@ public class Main {
     public static void run() throws Exception{
         mainscreen = new Screen(panelamount);
         interface1.setpanels(panelamount);
-        interface1.setdmxaddress(0);
+        interface1.setdmxaddress(1);
 
         DatagramSocket socket = new DatagramSocket(5568);
         byte[] buffer = new byte[638];

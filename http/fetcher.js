@@ -1,3 +1,40 @@
+var dmxaddress;
+var panelamount;
+
+// Buttons
+
+function submit(path, address) {
+    fetch(path, {
+        method: 'POST',
+        body: address
+    })
+        .then(alert("Data was sent successfully but method not implemented yet"))
+}
+
+window.onload = function () {
+    var button_address = document.getElementById('button_address');
+    button_address.onclick = function () {
+        var address = prompt('Enter new DMX Address:', dmxaddress);
+        if(address){
+            submit('/setaddress', address);
+        } else {
+            alert("Abort")
+        }
+    }
+
+    var button_panel = document.getElementById('button_panel');
+    button_panel.onclick = function () {
+        var panel = prompt('Enter new Panel amount:', panelamount);
+        if(panel){
+            submit('/setpanel', panel);
+        } else {
+            alert("Abort")
+        }
+    }
+}
+
+// Data fetching
+
 const pingServer = async () => {
     try {
         const response = await fetch('/ping');
@@ -43,18 +80,20 @@ const getDMX = async () => {
         const response = await fetch('/dmx');
         const json = await response.json();
 
-        const { universe, address, panel } = json;
+        const { universe, address, range, panel } = json;
 
-        return { universe, address, panel };
+        return { universe, address, range, panel };
     } catch (error) {
         return { universe: 'UNKNOWN', address: 'UNKNOWN', panel: 'UNKNOWN' };
     }
 };
 
 const updatedmx = async () => {
-    const { universe, address, panel } = await getDMX();
+    const { universe, address, range, panel } = await getDMX();
+    dmxaddress = address;
+    panelamount = panel;
     document.getElementById('universe').innerHTML = `${universe}`;
-    document.getElementById('address').innerHTML = `${address}`;
+    document.getElementById('address').innerHTML = `${address} - ${range}`;
     document.getElementById('panel').innerHTML = `${panel}`;
 };
 

@@ -1,6 +1,9 @@
 // HTTP API
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -18,12 +21,12 @@ public class Interface {
     Logger logger;
 
     String universe = "none";
-    String dmx = "UNKNOWN";
+    int dmx;
     int panel = 0;
 
     public Interface() throws Exception{
         logger = Logger.getLogger("Logger for Interface");
-        server = HttpServer.create(new InetSocketAddress(8080), 1);
+        server = HttpServer.create(new InetSocketAddress(80), 1);
         server.createContext("/", new Handler());
         server.setExecutor(null); // creates a default executor
         logger.log(Level.INFO, "Starting REST-API");
@@ -34,16 +37,12 @@ public class Interface {
         return server.getAddress().getPort();
     }
 
-    public String getAdress(){
-        return server.getAddress().getHostString();
-    }
-
     public void setUniverse(int tempuniverse){
         universe = Integer.toString(tempuniverse);
     }
 
     public void setdmxaddress(int tempaddress){
-        dmx = Integer.toString(tempaddress) + " - " + Integer.toString(tempaddress + panel*11 + 3);
+        dmx = tempaddress;
     }
 
     public void setpanels(int temppanel){
@@ -77,11 +76,28 @@ public class Interface {
                 }
 
                 if(path.equals("dmx")){
-                    response = "{\"universe\":\"" + universe + "\", \"address\": \"" + dmx + "\", \"panel\":\"" + Integer.toString(panel) + "\"}";
+                    response = "{\"universe\":\"" + universe + "\", \"address\": \"" + Integer.toString(dmx) + "\", \"range\":\"" + Integer.toString(dmx + panel*11 + 3) + "\", \"panel\":\"" + Integer.toString(panel) + "\"}";
                     t.getResponseHeaders().set("Content-Type", "application/json");
                     code = 200;
                 }
 
+                if(path.equals("setaddress")){
+                    InputStream is = t.getRequestBody();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                    String value = br.readLine();
+                    response = "OK";
+                    code = 200;
+                    dmx =  Integer.parseInt(value);
+                }
+
+                if(path.equals("setpanel")){
+                    InputStream is = t.getRequestBody();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                    String value = br.readLine();
+                    response = "OK";
+                    code = 200;
+                    panel =  Integer.parseInt(value);
+                }
 
                 t.sendResponseHeaders(code, response.length());
                 OutputStream os = t.getResponseBody();
