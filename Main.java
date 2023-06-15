@@ -1,11 +1,14 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.logging.Level;
+import java.util.logging.Handler;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class Main {
-
-    static Logger logger = Logger.getLogger("Beaser logger");
+    
+    static Logger logger = Logger.getLogger("beaser");
+    
     static Screen mainscreen;
     static Interface interface1;
 
@@ -13,6 +16,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         interface1 = new Interface();
+        LogHandler loghandler = new LogHandler(interface1);
+        logger.addHandler(loghandler);
+        interface1.startlogging(loghandler); // Irgendwie muss der Loghandeler rüber kommen
         run();
     }
 
@@ -28,10 +34,10 @@ public class Main {
         DMX dmx;
         dmx = new DMX();
 
-        logger.log(Level.INFO, "Listening...");
+        logger.log(Level.INFO, "[sACN] Listening for sACN-DMX");
         socket.receive(packet);
         dmx.processPacket(buffer);
-        logger.log(Level.INFO, "Universe: " + dmx.universe);
+        logger.log(Level.INFO, "[sACN] Receiving DMX on Universe: " + dmx.universe);
 
         while (true) {
             socket.receive(packet);

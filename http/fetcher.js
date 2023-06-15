@@ -97,10 +97,64 @@ const updatedmx = async () => {
     document.getElementById('panel').innerHTML = `${panel}`;
 };
 
+function updateLogTable(logs) {
+    const tableBody = document.querySelector("#log-table tbody");
+  
+    // Clear existing rows
+    tableBody.innerHTML = '<tr><td style="padding-top: 15px"></td></tr>'; // Empty row as placeholder
+  
+    logs.forEach(log => {
+      const row = document.createElement("tr");
+      row.style.color = log.color;
+        
+      const levelCell = document.createElement("td");
+      levelCell.textContent = log.level;
+      row.appendChild(levelCell);
+
+      const timestampCell = document.createElement("td");
+      timestampCell.textContent = log.time;
+      row.appendChild(timestampCell);
+
+      const origincell = document.createElement("td");
+      origincell.textContent = log.origin;
+      row.appendChild(origincell);
+  
+      const messageCell = document.createElement("td");
+      messageCell.textContent = log.message;
+      row.appendChild(messageCell);
+
+      tableBody.appendChild(row);
+    });
+
+    const bottomPaddingRow = document.createElement("tr");
+    const bottomPaddingCell = document.createElement("td");
+    bottomPaddingCell.style.paddingBottom = "15px";
+    bottomPaddingRow.appendChild(bottomPaddingCell);
+    tableBody.appendChild(bottomPaddingRow);
+  }
+  
+  async function fetchLogs() {
+    try {
+      const response = await fetch("/logs");
+      if (!response.ok) {
+        console.error("Failed to fetch logs:", response.statusText);
+        return;
+      }
+  
+      const logs = await response.json();
+      updateLogTable(logs);
+  
+    } catch (error) {
+      console.error("Error fetching logs:", error);
+    }
+  }
+  
 pingServer();
 updateStatus();
 updatedmx();
+fetchLogs();
 
 setInterval(pingServer, 1000);
 setInterval(updateStatus, 5000);
 setInterval(updatedmx, 5000);
+setInterval(fetchLogs, 1000);

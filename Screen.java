@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Screen extends JFrame{
 
-    static Logger logger = Logger.getLogger("Logger for screen");
+    static Logger logger = Logger.getLogger("beaser");
     JFrame frame;
 
     float dim = 1;
@@ -33,7 +33,7 @@ public class Screen extends JFrame{
         setSize(800, 600);
         setTitle("Beaser");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        logger.log(Level.INFO, "Screen ready");
+        logger.log(Level.INFO, "[screen] Started Screen Task Manager and window");
 
         JButton pauseButton = new JButton("Start Beaser");
         pauseButton.setBackground(new Color(0, 0, 0));
@@ -41,7 +41,7 @@ public class Screen extends JFrame{
         add(pauseButton);
         setVisible(true);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             if(pauseButton.getModel().isPressed()){
                 break;
             }
@@ -53,7 +53,7 @@ public class Screen extends JFrame{
             pauseButton.setText("Press to start Beaser (" + String.valueOf((100 - i)/10) + "s)");
             pauseButton.setBorderPainted(false);
         }
-        
+       
         remove(pauseButton);
         dispose();
 
@@ -63,11 +63,13 @@ public class Screen extends JFrame{
 
         getContentPane().setBackground(Color.BLACK);
 
+        logger.log(Level.INFO, "[screen] Started fullscreen"); 
+
         panels = new Panel(amount);
         panels.setOpaque(false);
         add(panels);
-
-        logger.log(Level.INFO, "Configured " + String.valueOf(amount) + " panels.");
+        
+        logger.log(Level.INFO, "[screen] Configured " + String.valueOf(amount) + " panels.");
 
         setVisible(true);
 

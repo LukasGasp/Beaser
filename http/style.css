@@ -57,7 +57,11 @@ body {
 }
 
 #log-table {
-    width: 800px;
+    width: 1000px;
+}
+
+#loglegend {
+    border-bottom: 1px solid #FFF;
 }
 
 footer {
