@@ -1,8 +1,6 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.logging.Level;
-import java.util.logging.Handler;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class Main {

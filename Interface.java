@@ -32,7 +32,7 @@ public class Interface {
     private static List<LogEntry> logs = new ArrayList<>();
 
     public Interface() throws Exception{
-        server = HttpServer.create(new InetSocketAddress(8080), 1);
+        server = HttpServer.create(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 8080), 1);
         server.createContext("/", new Handler());
         server.setExecutor(null); // creates a default executor
         server.start();
@@ -67,7 +67,7 @@ public class Interface {
         String color;
         if(level.equals("INFO")){
              color = "#FFF";
-        } else {
+        } else {          
             color = "#ff0000";
         }
         logs.add(new LogEntry(time, level, origin, text, color));

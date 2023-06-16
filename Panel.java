@@ -172,6 +172,7 @@ public class Panel extends JLayeredPane{
                     case 1 :
                         // Horizontal Line
                         g2d.fillRect(0, y[i], wxsize[i], height[i]);
+                        System.out.println("Mode to horizontal line");
                         break;
                     case 2 :
                         // Vertical Line
