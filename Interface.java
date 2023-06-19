@@ -32,7 +32,7 @@ public class Interface {
     private static List<LogEntry> logs = new ArrayList<>();
 
     public Interface() throws Exception{
-        server = HttpServer.create(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 8080), 1);
+        server = HttpServer.create(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 5000), 1);
         server.createContext("/", new Handler());
         server.setExecutor(null); // creates a default executor
         server.start();
