@@ -24,6 +24,7 @@ public class Main {
         mainscreen = new Screen(panelamount);
         interface1.setpanels(panelamount);
         interface1.setdmxaddress(1);
+        interface1.passscreen(mainscreen);
 
         DatagramSocket socket = new DatagramSocket(5568);
         byte[] buffer = new byte[638];

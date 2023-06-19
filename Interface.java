@@ -25,6 +25,8 @@ public class Interface {
     HttpServer server;
     Logger logger = Logger.getLogger("beaser");
 
+    Screen screen;
+
     String universe = "none";
     int dmx;
     int panel = 0;
@@ -41,6 +43,10 @@ public class Interface {
     // ja, loghandeler wird nicht benutzt. Muss aber drin sein! Kp, warum
     public void startlogging(LogHandler logHandler){
         logger.log(Level.INFO, "[API] Starting REST-API");
+    }
+
+    public void passscreen(Screen newScreen){
+        screen = newScreen;
     }
 
     public int getPort(){
@@ -137,6 +143,7 @@ public class Interface {
                     response = "OK";
                     code = 200;
                     dmx =  Integer.parseInt(value);
+                    screen.setaddress(dmx);
                     logger.log(Level.WARNING, "[API] Setting DMX Address to " + value);
                 }
 
@@ -147,6 +154,7 @@ public class Interface {
                     response = "OK";
                     code = 200;
                     panel =  Integer.parseInt(value);
+                    screen.setpanels(panel);
                     logger.log(Level.WARNING, "[API] Setting Panel-amount to " + value);
                 }
 

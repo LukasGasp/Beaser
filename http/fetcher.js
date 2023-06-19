@@ -8,7 +8,7 @@ function submit(path, address) {
         method: 'POST',
         body: address
     })
-        .then(alert("Data was sent successfully but method not implemented yet"))
+        .then(alert("Data was sent successfully!"))
 }
 
 window.onload = function () {

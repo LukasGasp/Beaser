@@ -15,7 +15,7 @@ public class Screen extends JFrame{
     float dim = 1;
     Color color = new Color(255, 255, 255);
 
-    
+    int dmxaddress;
     int[] dmxcache;
 
     int amount;
@@ -79,9 +79,9 @@ public class Screen extends JFrame{
     public void givedata(int[] dmx){
         windowSize = getSize(); // For right sizing of object sizes
         dmxcache = dmx;
-        Color bg = new Color(dmxcache[0], dmxcache[1], dmxcache[2]);
+        Color bg = new Color(dmxcache[0 + dmxaddress], dmxcache[1 + dmxaddress], dmxcache[2 + dmxaddress]);
         getContentPane().setBackground(bg);
-        datapointcache = 3;
+        datapointcache = dmxaddress + 3;
         for(int i = 0; i < amount; i++){
             panels.setwindowsize(i, getSize().width, getSize().height); // Muss zuerst aufgerufen werden, damit positionen stimmen
             setmode(i, datapointcache, i);                              // Rel Channel : 1
@@ -94,6 +94,17 @@ public class Screen extends JFrame{
             panels.forcerepaint();
             datapointcache = datapointcache + 11;
         }
+    }
+
+    public void setaddress(int newaddress){
+        dmxaddress = newaddress - 1;
+    }
+
+    public void setpanels(int amount){
+        remove(panels);
+        panels = new Panel(amount);
+        panels.setOpaque(false);
+        add(panels);
     }
 
     public void eoptions(int tempobject, int datapoint){

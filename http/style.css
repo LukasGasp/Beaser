@@ -52,7 +52,7 @@ body {
 
 .tablevalue {
     text-indent: 2em;
-    width: 150px;
+    /* width: 200px; */
     text-align: left;
 }
 
